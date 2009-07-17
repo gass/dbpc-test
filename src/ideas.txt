@@ -1,0 +1,19 @@
+ - dbpc-server
+ .provides a DBUS server that comunicates to I/O's.
+ .updates the state of the I/O's
+ .provides a communications plugin
+ .provides a data analisys plugin
+ .has a store for data update
+
+
+PROBLEMS
+ .how to store the data
+ . 
+
+
+ - libdbpcclient
+
+ .implements a client trough DBUS to communicate with DBPC.
+
+
+TAG_LIST -> TAGS -> TAG
