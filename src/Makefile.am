@@ -22,8 +22,12 @@ dbpc_test_SOURCES = \
 	tag.c     \
 	tag.h     \
 	value.c     \
-	value.h
+	value.h     \
+	sources/file_test.c     \
+	sources/file_test.h     \
+	source_list.c     \
+	source_list.h
 
-dbpc_test_CFLAGS = \
-	-Wall
+SUBDIRS = \
+	sources
 

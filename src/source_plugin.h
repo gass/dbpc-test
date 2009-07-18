@@ -3,10 +3,25 @@
 #define SOURCE_PLUGIN_H
 #include "value.h"
 
+enum connection_status { OK=1, ERROR };
 
 typedef struct _DBPCConnection DBPCConnection;
-
 typedef struct _DBPCSource DBPCSource;
+
+/**
+ * DBPCConnection:
+ * @fd file descriptor handler.
+ * @source Source plugin used for the connection.
+ *
+ * The DBPC connection handler.
+ */
+struct _DBPCConnection {
+    int fd;
+    int status;
+    DBPCSource *source;
+};
+
+
 
 /**
  * DBPCSource:
@@ -20,7 +35,7 @@ typedef struct _DBPCSource DBPCSource;
  */
 struct _DBPCSource {
 	char *name;
-	 DBPCConnection(*connection_start) (const char *connection_string);
+	void (*connection_start) (DBPCConnection *cn, const char * filename);
 	void (*connection_stop) (DBPCConnection * cn);
 	int (*get_value) (DBPCConnection * cn, const char *address,
 			  DBPCValue * value);
@@ -28,9 +43,18 @@ struct _DBPCSource {
 			  DBPCValue * value);
 	int (*monitor_value) (DBPCConnection * cn, const char *address,
 			      DBPCValue * value);
+	DBPCSource *next;
 };
 
-DBPCSource *dbpc_source_new(void);
+/* Sources */
+DBPCSource *dbpc_source_new(const char *name,
+							void *connection_start,
+							void *connection_stop,
+							void* get_value,
+							void *set_value );
 void dbpc_source_free(DBPCSource * src);
 
+/* Connections */
+DBPCConnection * dbpc_connection_new(DBPCSource *src, const char * connection_string);
+void dbpc_connection_free(DBPCConnection *cn);
 #endif				/* SOURCE_PLUGIN_H */

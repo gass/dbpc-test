@@ -12,7 +12,7 @@ dbpc_sampledoc_DATA = \
 	INSTALL\
 	NEWS
 
-EXTRA_DIST = $(dbpc_sampledoc_DATA)
+EXTRA_DIST = $(dbpc_sampledoc_DATA) 
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:
