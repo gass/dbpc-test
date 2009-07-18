@@ -12,6 +12,4 @@
  100 - ALL
  */
 
-
-
-#endif /* DBPC_H */
+#endif				/* DBPC_H */

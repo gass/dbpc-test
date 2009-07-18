@@ -10,15 +10,15 @@
 static char *dbpc_tag_dump_rw(DBPCTag * t);
 static DBPCTag *dbpc_tag_new_empty(void);
 
-DBPCTag *dbpc_tag_new(const char *tag_name, const char *address,
-		      const char *plugin_name, int value_type, int value_size)
+DBPCTag *dbpc_tag_new(DBPCConnection * cn, const char *tag_name,
+		      const char *address, int value_type, int value_size)
 {
 	DBPCTag *t = dbpc_tag_new_empty();
 
 	t->name = strdup(tag_name);
 	t->address = strdup(address);
 	dbpc_value_init(&t->value, value_type, value_size);
-	// src = dbpc_source_get_by_name(plugin_name);
+	t->connection = cn;
 	return t;
 }
 
@@ -29,7 +29,7 @@ static DBPCTag *dbpc_tag_new_empty(void)
 	t->name = NULL;
 	t->address = NULL;
 	t->events = NULL;
-	t->source = NULL;
+	t->connection = NULL;
 	t->value.value = NULL;
 	t->timestamp = 0;
 	return t;

@@ -39,7 +39,7 @@ static char *TypeString[9] = {
 
 static void dbpc_value_set_type(DBPCValue * value, int type);
 
- void dbpc_value_init(DBPCValue * value, int value_type, int value_size)
+void dbpc_value_init(DBPCValue * value, int value_type, int value_size)
 {
 	value->value_type = value_type;
 	value->value_size = value_size;

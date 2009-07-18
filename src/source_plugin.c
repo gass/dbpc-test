@@ -4,17 +4,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 static DBPCSource *dbpc_source_new_empty(void);
 
 DBPCSource *dbpc_source_new(const char *name,
-							void *connection_start,
-							void *connection_stop,
-							void* get_value,
-							void *set_value )
+			    void *connection_start,
+			    void *connection_stop, void *get_value,
+			    void *set_value)
 {
 	DBPCSource *src = dbpc_source_new_empty();
-	src->name = strdup (name);
+	src->name = strdup(name);
 	src->connection_start = connection_start;
 	src->connection_stop = connection_stop;
 	src->get_value = get_value;
@@ -38,18 +36,21 @@ static DBPCSource *dbpc_source_new_empty(void)
 void dbpc_source_free(DBPCSource * src)
 {
 	if (src->name != NULL) {
-		free (src->name);
+		free(src->name);
 	}
 	free(src);
 }
 
-DBPCConnection * dbpc_connection_new(DBPCSource *src, const char * connection_string) {
-	DBPCConnection * cn = malloc(sizeof(DBPCConnection));
+DBPCConnection *dbpc_connection_new(DBPCSource * src,
+				    const char *connection_string)
+{
+	DBPCConnection *cn = malloc(sizeof(DBPCConnection));
 	cn->source = src;
 	//cn->source->connection_start (cn, connection_string);
 	return cn;
 }
 
-void dbpc_connection_free (DBPCConnection * cn) {
-	free (cn);	
+void dbpc_connection_free(DBPCConnection * cn)
+{
+	free(cn);
 }

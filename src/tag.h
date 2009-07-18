@@ -27,7 +27,8 @@ typedef struct _DBPCTag DBPCTag;
  * @operation: operation to do in the next loop: 0-read, 1-write;
  * @user_permissions: needs more reasearch (not used yet).
  * @events: custom associated events and callbacks.
- * @source: #DBPCSource plugin to use.
+ * @connection: connection to be used.
+ * @next: the next #DBPCTag in the tag list.
  *
  * All data points available trough DBPC are represented by a Tag object.
  */
@@ -45,12 +46,13 @@ struct _DBPCTag {
 
 	void *events;
 
-	DBPCSource *source;
+	DBPCConnection *connection;
+	DBPCTag *next;
 };
 
 /* function declarations */
-DBPCTag *dbpc_tag_new(const char *tag_name, const char *address,
-		      const char *plugin_name, int value_type, int value_size);
+DBPCTag *dbpc_tag_new(DBPCConnection * cn, const char *tag_name,
+		      const char *address, int value_type, int value_size);
 void dbpc_tag_set_permission(DBPCTag * t, int read_write);
 char *dbpc_tag_value_type_to_string(int type);
 void dbpc_tag_dump(DBPCTag * t);

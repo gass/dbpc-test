@@ -7,21 +7,21 @@
 
 #include <stdio.h>
 #include "dbpc.h"
-#include "tag.h"
+#include "tag_list.h"
 #include "sources/file_test.h"
 #include "source_list.h"
-void create_source (void);
+void create_source(void);
 int main(void)
 {
 	DBPCTag *tag;
 	printf("start source\n");
-	create_source ();
+	create_source();
 	printf("source created\n");
 #if 0
 	int i = 0;
 	for (i = 0; i < 8; i++) {
 		printf("############################\n");
-	printf("Create a new DBPC Tag\n");
+		printf("Create a new DBPC Tag\n");
 		tag = dbpc_tag_new("Luis Luis", "M100.0", "file", i, 1);
 		printf("done tag new\n");
 
@@ -38,27 +38,33 @@ int main(void)
 	return 0;
 }
 
-void create_source (void) {	
-	int i=0;
+void create_source(void)
+{
+	int i = 0;
 	DBPCSource *src;
-	DBPCConnection * cn;
-	for (i=0; i<10000000; i++) {
-	src = dbpc_source_new ("file",
-										   &file_connection_start,
-										   &file_connection_stop, NULL, NULL);
-	dbpc_source_list_add (src);
-	printf ("add add\n");
-	src = NULL;
-	src = dbpc_source_list_find ("file");
-	printf ("get get\n");
-	cn = dbpc_connection_new (src, "/home/gass/Desktop/tt.txt");
-	//printf ("status start %d\n", cn->status);
-	//src->connection_stop (cn);
-	//printf ("status stop %d\n", cn->status);
-	dbpc_connection_free (cn);
-	dbpc_source_free_from_list (src);
-	printf("source free\n");
-	//sleep (0.25);
-	//dbpc_source_free (src);
+	DBPCConnection *cn;
+	DBPCTag *tag;
+	src = dbpc_source_new("file",
+			      &file_connection_start,
+			      &file_connection_stop, NULL, NULL);
+	dbpc_source_list_add(src);
+	for (i = 0; i < 1; i++) {
+
+		dbpc_tag_list_add(tag);
+		printf("add add\n");
+		src = NULL;
+		src = dbpc_source_list_find("file");
+		printf("get get\n");
+		cn = dbpc_connection_new(src, "/home/gass/Desktop/tt.txt");
+		tag = dbpc_tag_new(cn, "Luis Luis", "M100.0", i, 1);
+		dbpc_tag_list_add (tag);
+		//printf ("status start %d\n", cn->status);
+		//src->connection_stop (cn);
+		//printf ("status stop %d\n", cn->status);
+		//dbpc_connection_free (cn);
+		//dbpc_source_free_from_list (src);
+		printf("source free\n");
+		//sleep (0.25);
+		//dbpc_source_free (src);
 	}
 }

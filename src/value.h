@@ -21,11 +21,11 @@
  * License along with main.c; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor Boston, MA 02110-1301,  USA
  */
- 
- #ifndef VALUE_H
- #define VALUE_H
- 
- enum value_type {
+
+#ifndef VALUE_H
+#define VALUE_H
+
+enum value_type {
 	NONE = 0,
 	BIT,
 	BYTE,
@@ -54,7 +54,6 @@ struct _DBPCValue {
 	void *value;
 };
 
-
 void dbpc_value_init(DBPCValue * value, int value_type, int value_size);
 void dbpc_value_dump(DBPCValue * value);
 void dbpc_value_free(DBPCValue * value);
@@ -62,5 +61,4 @@ char *dbpc_value_type_to_string(int type);
 void dbpc_value_dump(DBPCValue * value);
 void dbpc_value_dump_value(DBPCValue * value);
 
- #endif /* VALUE_H */
- 
+#endif				/* VALUE_H */

@@ -26,7 +26,9 @@ dbpc_test_SOURCES = \
 	sources/file_test.c     \
 	sources/file_test.h     \
 	source_list.c     \
-	source_list.h
+	source_list.h     \
+	tag_list.h     \
+	tag_list.c
 
 SUBDIRS = \
 	sources
