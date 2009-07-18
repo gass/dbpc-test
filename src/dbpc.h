@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 
-#ifndef DBPCH
-#define DBPCH
+#ifndef DBPC_H
+#define DBPC_H
 #include "tag.h"
 
 #define DEBUG_LEVEL 100
@@ -14,4 +14,4 @@
 
 
 
-#endif /* DBPCH */
+#endif /* DBPC_H */

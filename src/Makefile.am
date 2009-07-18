@@ -20,7 +20,9 @@ dbpc_test_SOURCES = \
 	source_plugin.c     \
 	source_plugin.h     \
 	tag.c     \
-	tag.h
+	tag.h     \
+	value.c     \
+	value.h
 
 dbpc_test_CFLAGS = \
 	-Wall
