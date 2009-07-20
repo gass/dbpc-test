@@ -3,6 +3,8 @@
 #ifndef DBPC_H
 #define DBPC_H
 #include "tag.h"
+#include "source.h"
+#include "connection.h"
 
 #define DEBUG_LEVEL 100
 /* DEBUG_LEVEL:

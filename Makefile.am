@@ -22,7 +22,6 @@ dbpc_test_SOURCES = \
 	dbpc-server/dbpc.h \
 	dbpc-server/source_list.c \
 	dbpc-server/source_list.h \
-	dbpc-server/source_plugin.c \
 	dbpc-server/source_plugin.h \
 	dbpc-server/tag.c \
 	dbpc-server/tag.h \
@@ -31,7 +30,11 @@ dbpc_test_SOURCES = \
 	dbpc-server/value.c \
 	dbpc-server/value.h \
 	dbpc-server/sources/file_test.c \
-	dbpc-server/sources/file_test.h
+	dbpc-server/sources/file_test.h \
+	dbpc-server/connection.c \
+	dbpc-server/connection.h \
+	dbpc-server/source.c \
+	dbpc-server/source.h
 
 dbpc_test_CFLAGS = \
 	-I./dbpc-server \

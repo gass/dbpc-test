@@ -44,15 +44,5 @@ struct _DBPCSource {
 	DBPCSource *next;
 };
 
-/* Sources */
-DBPCSource *dbpc_source_new(const char *name,
-			    void *connection_start,
-			    void *connection_stop,
-			    void *get_value, void *set_value);
-void dbpc_source_free(DBPCSource * src);
 
-/* Connections */
-DBPCConnection *dbpc_connection_new(DBPCSource * src,
-				    const char *connection_string);
-void dbpc_connection_free(DBPCConnection * cn);
 #endif				/* SOURCE_PLUGIN_H */
