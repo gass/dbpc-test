@@ -60,5 +60,6 @@ void dbpc_value_free(DBPCValue * value);
 char *dbpc_value_type_to_string(int type);
 void dbpc_value_dump(DBPCValue * value);
 void dbpc_value_dump_value(DBPCValue * value);
+char *strdup_printf (const char *fmt, ...);
 
 #endif				/* VALUE_H */

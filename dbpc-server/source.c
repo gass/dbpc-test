@@ -4,8 +4,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-static DBPCSource *dbpc_source_new_empty(void);
-
+/**
+ * dbpc_source_new:
+ *
+ * @name: source's name.
+ * @connection_start: pointer to the connection_start function of the plugin.
+ * @connection_stop: pointer to the connection_stop function of the plugin.
+ * @get_value: pointer to the get_value function of the plugin.
+ * @set_value: pointer to the set_value function of the plugin.
+ *
+ * Creates a new #DBPCSource with all fields filled.
+ */
 DBPCSource *dbpc_source_new(const char *name,
 			    void *connection_start,
 			    void *connection_stop, void *get_value,
@@ -20,10 +29,16 @@ DBPCSource *dbpc_source_new(const char *name,
 	return src;
 }
 
-static DBPCSource *dbpc_source_new_empty(void)
+/**
+ * dbpc_source_new_empty:
+ *
+ * Simple function to produce a "NULLED" #DBPCSource.
+ */
+DBPCSource *dbpc_source_new_empty(void)
 {
 	DBPCSource *src = malloc(sizeof(DBPCSource));
 	src->name = NULL;
+	src->description = NULL;
 	src->connection_start = NULL;
 	src->connection_stop = NULL;
 	src->get_value = NULL;
@@ -37,6 +52,9 @@ void dbpc_source_free(DBPCSource * src)
 {
 	if (src->name != NULL) {
 		free(src->name);
+	}
+	if (src->description != NULL) {
+		free(src->description);
 	}
 	free(src);
 }

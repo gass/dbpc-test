@@ -4,6 +4,7 @@
 #include "source_plugin.h"
 
 /* Sources */
+DBPCSource *dbpc_source_new_empty(void);
 DBPCSource *dbpc_source_new(const char *name,
 			    void *connection_start,
 			    void *connection_stop,

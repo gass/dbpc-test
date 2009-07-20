@@ -14,3 +14,11 @@ AM_CFLAGS =\
 SUBDIRS = \
 	sources
 
+lib_LTLIBRARIES = \
+	libdbpc-source-file.la
+
+libdbpc_source_file_la_SOURCES = \
+	source_plugin.h         \
+	sources/file_test.c         \
+	sources/file_test.h
+

@@ -29,8 +29,6 @@ dbpc_test_SOURCES = \
 	dbpc-server/tag_list.h \
 	dbpc-server/value.c \
 	dbpc-server/value.h \
-	dbpc-server/sources/file_test.c \
-	dbpc-server/sources/file_test.h \
 	dbpc-server/connection.c \
 	dbpc-server/connection.h \
 	dbpc-server/source.c \
@@ -38,7 +36,8 @@ dbpc_test_SOURCES = \
 
 dbpc_test_CFLAGS = \
 	-I./dbpc-server \
-	-I./dbpc-server/sources
+	-I./dbpc-server/sources \
+	-ldl
 
 # Copy all the spec files. Of cource, only one is actually used.
 dist-hook:

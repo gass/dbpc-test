@@ -44,17 +44,17 @@ void create_source(void)
 	DBPCSource *src;
 	DBPCConnection *cn;
 	DBPCTag *tag;
-	src = dbpc_source_new("file",
-			      &file_connection_start,
-			      &file_connection_stop, NULL, NULL);
-	dbpc_source_list_add(src);
+	dbpc_source_load ("/home/gass/dbpc/dbpc-server/.libs/libdbpc-source-file.so.0.0.0");
 	for (i = 0; i < 1; i++) {
 
 		dbpc_tag_list_add(tag);
 		printf("add add\n");
 		src = NULL;
-		src = dbpc_source_list_find("file");
-		printf("get get\n");
+		src = dbpc_source_list_find("file common name");
+		if (src) {
+			printf ("eeer\n");
+		printf ("descrition: %s\n", src->description);
+
 		cn = dbpc_connection_new(src, "/home/gass/Desktop/tt.txt");
 		tag = dbpc_tag_new(cn, "Luis Luis", "M100.0", i, 1);
 		dbpc_tag_list_add (tag);
@@ -64,6 +64,7 @@ void create_source(void)
 		//dbpc_connection_free (cn);
 		//dbpc_source_free_from_list (src);
 		printf("source free\n");
+		}
 		//sleep (0.25);
 		//dbpc_source_free (src);
 	}
