@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include "dbpc.h"
 #include "tag_list.h"
-#include "sources/file_test.h"
+#include "file_test.h"
 #include "source_list.h"
 void create_source(void);
 int main(void)

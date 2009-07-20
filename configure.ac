@@ -9,8 +9,8 @@ AM_MAINTAINER_MODE
 
 AC_ISC_POSIX
 AC_PROG_CC
-AC_PROG_CC_C_O
 AM_PROG_CC_STDC
+AM_PROG_CC_C_O
 AC_HEADER_STDC
 
 GTK_DOC_CHECK(1.9)
@@ -21,6 +21,6 @@ AC_CONFIG_MACRO_DIR(m4)
 
 AC_OUTPUT([
 Makefile
-src/Makefile
-src/sources/Makefile
+dbpc-server/Makefile
+dbpc-server/sources/Makefile
 ])
