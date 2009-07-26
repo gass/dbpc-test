@@ -30,6 +30,7 @@ typedef struct _DBPCTag DBPCTag;
  * @user_permissions: needs more reasearch (not used yet).
  * @events: custom associated events and callbacks.
  * @connection: connection to be used.
+ * @tag_data: stores the data pointer (for #DBPCTagBool, for example)
  * @next: the next #DBPCTag in the tag list.
  *
  * All data points available trough DBPC are represented by a Tag object.
