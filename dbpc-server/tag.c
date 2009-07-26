@@ -72,3 +72,15 @@ void dbpc_tag_free(DBPCTag * t)
 //    if (t->events!=NULL) free (t->events);
 	free(t);
 }
+
+void *dbpc_tag_get_data (DBPCTag *t)
+{
+	if (t == NULL)
+	{
+		return NULL;
+	}
+	else
+	{
+		return t->tag_data;
+	}
+}

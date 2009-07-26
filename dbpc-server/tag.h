@@ -59,5 +59,6 @@ DBPCTag *dbpc_tag_new(DBPCConnection * cn, const char *tag_name,
 void dbpc_tag_set_permission(DBPCTag * t, int read_write);
 void dbpc_tag_dump(DBPCTag * t);
 void dbpc_tag_free(DBPCTag * t);
+void *dbpc_tag_get_data (DBPCTag *t);
 
 #endif				/* TAG_H */
