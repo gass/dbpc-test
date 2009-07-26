@@ -59,6 +59,8 @@ void create_source(void)
 	dbpc_bool_write (btag, dtrue);
 	dbpc_tag_list_add(DBPC_TAG(btag));
 	dbpc_bool_dump (btag);
+	printf ("COUNT %d\n", dbpc_tag_list_count ());
+	
 	/* bool int */
 	itag = dbpc_int_new(cn, "Luis Luis2", "M100.0");
 	dbpc_int_write (itag, 1000);
@@ -66,15 +68,14 @@ void create_source(void)
 	dbpc_int_dump (itag);
 	itag = DBPC_TAG_INT(dbpc_tag_list_find("Luis Luis2"));
 	dbpc_int_write (itag, 1001);
-	if (itag == NULL) 
-	{
-		printf ("itag NULL\n");
-		return;
-	}
-	if (!itag)
-	{
-		printf ("itag empty\n");
-		return;
-	}
 	dbpc_int_dump (itag);
+	
+	printf ("COUNT %d\n", dbpc_tag_list_count ());
+	dbpc_tag_list_remove (DBPC_TAG(btag));
+	printf ("COUNT %d\n", dbpc_tag_list_count ());
+	dbpc_bool_free(btag);
+	dbpc_tag_list_remove (DBPC_TAG(itag));
+	printf ("COUNT %d\n", dbpc_tag_list_count ());
+	dbpc_int_free(itag);
+	
 }
