@@ -2,10 +2,12 @@
 
 #include "source_list.h"
 #include "source.h"
+#include "utils.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <dlfcn.h>
+
 
 /*
  * The list of available #DBPCSource's.

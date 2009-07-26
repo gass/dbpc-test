@@ -32,9 +32,7 @@ dbpc_test_SOURCES = \
 	dbpc-server/source.c \
 	dbpc-server/source.h \
 	dbpc-server/utils.c \
-	dbpc-server/utils.h \
-	dbpc-server/value.c \
-	dbpc-server/value.h
+	dbpc-server/utils.h 
 
 dbpc_test_CFLAGS = \
 	-I./dbpc-server \
