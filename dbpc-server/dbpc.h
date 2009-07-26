@@ -13,5 +13,11 @@
  2 - print before memory functions
  100 - ALL
  */
+/* special types */
+/** boolean value */
+typedef char dbool;
+
+enum dbool {dfalse = 0, dtrue = 1};
+
 
 #endif				/* DBPC_H */

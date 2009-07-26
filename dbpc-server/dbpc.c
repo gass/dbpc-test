@@ -56,7 +56,8 @@ void create_source(void)
 			printf ("eeer\n");
 		printf ("descrition: %s\n", src->description);
 		cn = dbpc_connection_new(src, "/home/gass/Desktop/tt.txt");
-		tag = dbpc_tag_bool_new(cn, "Luis Luis", "M100.0");
+		tag = dbpc_bool_new(cn, "Luis Luis", "M100.0");
+		dbpc_bool_write (tag, dtrue);
 		dbpc_tag_list_add(DBPC_TAG(tag));
 		dbpc_tag_dump (DBPC_TAG(tag));
 		//dbpc_tag_list_add (tag);
