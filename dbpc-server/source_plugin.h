@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 #ifndef SOURCE_PLUGIN_H
 #define SOURCE_PLUGIN_H
-#include "value.h"
+#include "utils.h"
 
 enum connection_status { OK = 1, ERROR };
 
@@ -36,12 +36,13 @@ struct _DBPCSource {
 	char *description;
 	void (*connection_start) (DBPCConnection * cn, const char *filename);
 	void (*connection_stop) (DBPCConnection * cn);
-	int (*get_value) (DBPCConnection * cn, const char *address,
+/*	int (*get_value) (DBPCConnection * cn, const char *address,
 			  DBPCValue * value);
 	int (*set_value) (DBPCConnection * cn, const char *address,
 			  DBPCValue * value);
 	int (*monitor_value) (DBPCConnection * cn, const char *address,
 			      DBPCValue * value);
+			      */
 	DBPCSource *next;
 };
 

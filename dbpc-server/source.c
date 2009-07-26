@@ -24,8 +24,8 @@ DBPCSource *dbpc_source_new(const char *name,
 	src->name = strdup(name);
 	src->connection_start = connection_start;
 	src->connection_stop = connection_stop;
-	src->get_value = get_value;
-	src->set_value = set_value;
+//	src->get_value = get_value;
+//	src->set_value = set_value;
 	return src;
 }
 
@@ -41,9 +41,9 @@ DBPCSource *dbpc_source_new_empty(void)
 	src->description = NULL;
 	src->connection_start = NULL;
 	src->connection_stop = NULL;
-	src->get_value = NULL;
-	src->set_value = NULL;
-	src->monitor_value = NULL;
+//	src->get_value = NULL;
+//	src->set_value = NULL;
+//	src->monitor_value = NULL;
 	src->next = NULL;
 	return src;
 }

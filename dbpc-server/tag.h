@@ -6,6 +6,8 @@
 #include "source_plugin.h"
 #include <time.h>
 
+#define DBPC_TAG(x) x->tag
+
 enum update_mode { ON_USE = 0, CONTINUOUS };
 enum permission { R = 0, W, RW };
 
@@ -51,9 +53,8 @@ struct _DBPCTag {
 
 /* function declarations */
 DBPCTag *dbpc_tag_new(DBPCConnection * cn, const char *tag_name,
-		      const char *address, int value_type, int value_size);
+		      const char *address);
 void dbpc_tag_set_permission(DBPCTag * t, int read_write);
-char *dbpc_tag_value_type_to_string(int type);
 void dbpc_tag_dump(DBPCTag * t);
 void dbpc_tag_free(DBPCTag * t);
 

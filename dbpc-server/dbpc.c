@@ -10,6 +10,7 @@
 #include "tag_list.h"
 #include "file_test.h"
 #include "source_list.h"
+#include "tag_bool.h"
 void create_source(void);
 int main(void)
 {
@@ -43,21 +44,22 @@ void create_source(void)
 	int i = 0;
 	DBPCSource *src;
 	DBPCConnection *cn;
-	DBPCTag *tag;
+	DBPCTagBool *tag;
 	dbpc_source_load ("/home/gass/dbpc/dbpc-server/.libs/libdbpc-source-file.so.0.0.0");
 	for (i = 0; i < 1; i++) {
-
-		dbpc_tag_list_add(tag);
+		
+		
 		printf("add add\n");
 		src = NULL;
 		src = dbpc_source_list_find("file common name");
 		if (src) {
 			printf ("eeer\n");
 		printf ("descrition: %s\n", src->description);
-
 		cn = dbpc_connection_new(src, "/home/gass/Desktop/tt.txt");
-		tag = dbpc_tag_new(cn, "Luis Luis", "M100.0", i, 1);
-		dbpc_tag_list_add (tag);
+		tag = dbpc_tag_bool_new(cn, "Luis Luis", "M100.0");
+		dbpc_tag_list_add(DBPC_TAG(tag));
+		dbpc_tag_dump (DBPC_TAG(tag));
+		//dbpc_tag_list_add (tag);
 		//printf ("status start %d\n", cn->status);
 		//src->connection_stop (cn);
 		//printf ("status stop %d\n", cn->status);

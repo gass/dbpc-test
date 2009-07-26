@@ -11,7 +11,7 @@ static char *dbpc_tag_dump_rw(DBPCTag * t);
 static DBPCTag *dbpc_tag_new_empty(void);
 
 DBPCTag *dbpc_tag_new(DBPCConnection * cn, const char *tag_name,
-		      const char *address, int value_type, int value_size)
+		      const char *address)
 {
 	DBPCTag *t = dbpc_tag_new_empty();
 
