@@ -46,7 +46,9 @@ struct _DBPCTag {
 	char operation;
 
 	void *events;
-
+	
+    void *tag_data;
+    
 	DBPCConnection *connection;
 	DBPCTag *next;
 };

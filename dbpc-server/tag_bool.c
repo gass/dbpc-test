@@ -9,6 +9,7 @@ DBPCTagBool * dbpc_bool_new (DBPCConnection * cn,
 {
     DBPCTagBool *btag = malloc (sizeof (DBPCTagBool));
     btag->tag = dbpc_tag_new(cn, tag_name, address);
+    btag->tag->tag_data = btag;
     return btag;
 }
 

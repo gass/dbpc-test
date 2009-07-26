@@ -11,6 +11,7 @@
 #include "file_test.h"
 #include "source_list.h"
 #include "tag_bool.h"
+#include "tag_int.h"
 void create_source(void);
 int main(void)
 {
@@ -44,31 +45,23 @@ void create_source(void)
 	int i = 0;
 	DBPCSource *src;
 	DBPCConnection *cn;
-	DBPCTagBool *tag;
+	DBPCTagBool *btag;
+	DBPCTagInt *itag;
 	dbpc_source_load ("/home/gass/dbpc/dbpc-server/.libs/libdbpc-source-file.so.0.0.0");
-	for (i = 0; i < 1; i++) {
-		
-		
-		printf("add add\n");
-		src = NULL;
-		src = dbpc_source_list_find("file common name");
-		if (src) {
-			printf ("eeer\n");
-		printf ("descrition: %s\n", src->description);
-		cn = dbpc_connection_new(src, "/home/gass/Desktop/tt.txt");
-		tag = dbpc_bool_new(cn, "Luis Luis", "M100.0");
-		dbpc_bool_write (tag, dtrue);
-		dbpc_tag_list_add(DBPC_TAG(tag));
-		dbpc_tag_dump (DBPC_TAG(tag));
-		//dbpc_tag_list_add (tag);
-		//printf ("status start %d\n", cn->status);
-		//src->connection_stop (cn);
-		//printf ("status stop %d\n", cn->status);
-		//dbpc_connection_free (cn);
-		//dbpc_source_free_from_list (src);
-		printf("source free\n");
-		}
-		//sleep (0.25);
-		//dbpc_source_free (src);
-	}
+	src = dbpc_source_list_find("file common name");
+	if (!src) return;
+	
+	printf ("eeer\n");
+	printf ("descrition: %s\n", src->description);
+	cn = dbpc_connection_new(src, "/home/gass/Desktop/tt.txt");
+	/* bool tag */
+	btag = dbpc_bool_new(cn, "Luis Luis", "M100.0");
+	dbpc_bool_write (btag, dtrue);
+	dbpc_tag_list_add(DBPC_TAG(btag));
+	dbpc_bool_dump (btag);
+	/* bool int */
+	itag = dbpc_int_new(cn, "Luis Luis", "M100.0");
+	dbpc_int_write (itag, 1000);
+	dbpc_tag_list_add(DBPC_TAG(itag));
+	dbpc_int_dump (itag);
 }

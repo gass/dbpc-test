@@ -6,6 +6,7 @@
 #include "dbpc.h"
 
 typedef struct _DBPCTagBool DBPCTagBool;
+#define DBPC_TAG_BOOL(x) x->tag_data
 
 struct _DBPCTagBool {
     DBPCTag *tag;
