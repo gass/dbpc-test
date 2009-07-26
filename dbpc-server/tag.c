@@ -17,7 +17,6 @@ DBPCTag *dbpc_tag_new(DBPCConnection * cn, const char *tag_name,
 
 	t->name = strdup(tag_name);
 	t->address = strdup(address);
-	dbpc_value_init(&t->value, value_type, value_size);
 	t->connection = cn;
 	return t;
 }
@@ -30,7 +29,6 @@ static DBPCTag *dbpc_tag_new_empty(void)
 	t->address = NULL;
 	t->events = NULL;
 	t->connection = NULL;
-	t->value.value = NULL;
 	t->timestamp = 0;
 	return t;
 }
@@ -46,7 +44,6 @@ void dbpc_tag_dump(DBPCTag * t)
 	printf("TAG ADDRESS: %s\n", t->address);
 	printf("TAG PERMISSION: %s\n", dbpc_tag_dump_rw(t));
 	printf("TAG TIMESTAMP: %ld\n", t->timestamp);
-	dbpc_value_dump(&t->value);
 }
 
 static char *dbpc_tag_dump_rw(DBPCTag * t)
@@ -71,7 +68,6 @@ void dbpc_tag_free(DBPCTag * t)
 		free(t->name);
 	if (t->address != NULL)
 		free(t->address);
-	dbpc_value_free(&t->value);
 
 //    if (t->events!=NULL) free (t->events);
 	free(t);

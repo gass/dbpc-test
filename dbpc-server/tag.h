@@ -42,7 +42,6 @@ struct _DBPCTag {
 	char permission;
 	int user_permissions;
 	char operation;
-	DBPCValue value;
 
 	void *events;
 
