@@ -4,7 +4,7 @@
 #include <stdarg.h>
 
 char *
-strdup_printf (const char *fmt, ...)
+strdup_printf (const char *fmt, ...);
 
 
 #endif /* UTILS_H */
