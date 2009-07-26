@@ -34,7 +34,9 @@ dbpc_test_SOURCES = \
 	dbpc-server/utils.c \
 	dbpc-server/utils.h \
 	dbpc-server/tag_bool.c \
-	dbpc-server/tag_bool.h
+	dbpc-server/tag_bool.h \
+	dbpc-server/tag_int.c \
+	dbpc-server/tag_int.h
 
 dbpc_test_CFLAGS = \
 	-I./dbpc-server \
