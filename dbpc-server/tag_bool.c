@@ -34,3 +34,12 @@ void dbpc_bool_free (DBPCTagBool *btag)
     dbpc_tag_free (DBPC_TAG(btag));
     free (btag);
 }
+
+void dbpc_bool_dump (DBPCTagBool * btag)
+{
+    dbpc_tag_dump (DBPC_TAG(btag));
+    if (btag->value)
+        printf ("TAG BOOL VALUE: TRUE\n");
+    else
+        printf ("TAG BOOL VALUE: FALSE\n");
+}
