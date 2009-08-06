@@ -3,6 +3,8 @@
 #define SOURCE_PLUGIN_H
 #include "utils.h"
 
+typedef char BYTE;
+
 enum connection_status { OK = 1, ERROR };
 
 typedef struct _DBPCConnection DBPCConnection;
@@ -36,13 +38,13 @@ struct _DBPCSource {
 	char *description;
 	void (*connection_start) (DBPCConnection * cn, const char *filename);
 	void (*connection_stop) (DBPCConnection * cn);
-/*	int (*get_value) (DBPCConnection * cn, const char *address,
-			  DBPCValue * value);
+    int (*get_value) (DBPCConnection * cn, const char *address,
+			  BYTE **value);
 	int (*set_value) (DBPCConnection * cn, const char *address,
-			  DBPCValue * value);
+			  BYTE *value);
 	int (*monitor_value) (DBPCConnection * cn, const char *address,
-			      DBPCValue * value);
-			      */
+			      BYTE * value);
+
 	DBPCSource *next;
 };
 
