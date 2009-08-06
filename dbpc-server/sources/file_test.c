@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "source_plugin.h"
+#include <stdlib.h>
 
 #define SOURCE_NAME_ID "file"
 #define SOURCE_NAME "file common name"
@@ -36,4 +37,12 @@ void file_connection_stop (DBPCConnection *cn) {
     else {
         cn->status = OK;
     }
+}
+
+int file_get_value (DBPCConnection * cn, const char *address, BYTE **value)
+{
+    BYTE * value2 = malloc (4*sizeof (BYTE));
+    value2[0] = 20;
+    *value = value2;
+    return 0;
 }

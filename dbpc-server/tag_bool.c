@@ -25,9 +25,24 @@ void dbpc_bool_write (DBPCTagBool *btag, dbool value)
     }
 }
 
-dbool dbpc_bool_read (DBPCTagBool *btag)
+int dbpc_bool_read (DBPCTagBool *btag)
 {
-    return btag->value;
+    BYTE * value;
+    int r;
+    r = dbpc_tag_get_value (DBPC_TAG (btag), &value);
+    if (r == 0)
+    {
+        if (value > 0)
+        {
+            btag->value = dtrue;
+        }
+        else
+        {
+            btag->value = dfalse;
+        }
+        free (value);
+    }
+    return 0;
 }
 
 void dbpc_bool_free (DBPCTagBool *btag)

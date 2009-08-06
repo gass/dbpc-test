@@ -61,5 +61,6 @@ void dbpc_tag_set_permission(DBPCTag * t, int read_write);
 void dbpc_tag_dump(DBPCTag * t);
 void dbpc_tag_free(DBPCTag * t);
 void *dbpc_tag_get_data (DBPCTag *t);
+int dbpc_tag_get_value (DBPCTag *t, BYTE **value);
 
 #endif				/* TAG_H */

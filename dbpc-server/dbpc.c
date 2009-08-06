@@ -47,6 +47,7 @@ void create_source(void)
 	DBPCConnection *cn;
 	DBPCTagBool *btag;
 	DBPCTagInt *itag;
+	BYTE * value;
 	dbpc_source_load ("/home/gass/dbpc/dbpc-server/.libs/libdbpc-source-file.so.0.0.0");
 	src = dbpc_source_list_find("file common name");
 	if (!src) return;
@@ -59,6 +60,7 @@ void create_source(void)
 	dbpc_bool_write (btag, dtrue);
 	dbpc_tag_list_add(DBPC_TAG(btag));
 	dbpc_bool_dump (btag);
+	dbpc_bool_write (btag, dfalse);
 	printf ("COUNT %d\n", dbpc_tag_list_count ());
 	
 	/* bool int */
@@ -70,6 +72,10 @@ void create_source(void)
 	dbpc_int_write (itag, 1001);
 	dbpc_int_dump (itag);
 	
+	dbpc_bool_read (btag);
+	dbpc_bool_dump (btag);
+	dbpc_int_read (itag);
+	dbpc_int_dump (itag);
 	printf ("COUNT %d\n", dbpc_tag_list_count ());
 	dbpc_tag_list_remove (DBPC_TAG(btag));
 	printf ("COUNT %d\n", dbpc_tag_list_count ());

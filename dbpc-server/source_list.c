@@ -80,6 +80,7 @@ void dbpc_source_load (const char *filename) {
 	void * (*get_source_name_id) (void);
 	void * (*get_name) (void);
 	void * (*get_description) (void);
+	int (*get_value) (DBPCConnection * cn, const char *address, BYTE **value);
 	char *id;
 	char *pchr;
 	handle = dlopen(filename, RTLD_LAZY);
@@ -112,6 +113,10 @@ void dbpc_source_load (const char *filename) {
 	
 	pchr = strdup_printf("%s_connection_stop", id);
 	src->connection_stop = dlsym(handle, pchr);
+	free(pchr);
+	
+	pchr = strdup_printf("%s_get_value", id);
+	src->get_value = dlsym(handle, pchr);
 	free(pchr);
 	
 	dbpc_source_list_add (src);

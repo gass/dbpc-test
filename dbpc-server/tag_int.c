@@ -1,6 +1,7 @@
 #include "tag.h"
 #include "tag_int.h"
 #include <stdlib.h>
+#include <string.h>
 
 
 DBPCTagInt * dbpc_int_new (DBPCConnection * cn,
@@ -20,7 +21,15 @@ void dbpc_int_write (DBPCTagInt *itag, int value)
 
 int dbpc_int_read (DBPCTagInt *itag)
 {
-    return itag->value;
+    BYTE * value;// = malloc (sizeof (2*BYTE));
+    int r;
+    r = dbpc_tag_get_value (DBPC_TAG (itag), &value);
+    if (r == 0)
+    {
+        memcpy (&itag->value, value, sizeof (int));
+        free (value);
+    }
+    return 0;
 }
 
 void dbpc_int_free (DBPCTagInt *itag)

@@ -7,5 +7,4 @@
 DBPCConnection *dbpc_connection_new(DBPCSource * src,
 				    const char *connection_string);
 void dbpc_connection_free(DBPCConnection * cn);
-
 #endif /*CONNECTION_H */
