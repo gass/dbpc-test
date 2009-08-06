@@ -27,9 +27,9 @@ void dbpc_bool_write (DBPCTagBool *btag, dbool value)
 
 int dbpc_bool_read (DBPCTagBool *btag)
 {
-    BYTE * value = malloc (sizeof (BYTE));
+    BYTE value;
     int r;
-    r = dbpc_tag_get_value (DBPC_TAG (btag), value, 1);
+    r = dbpc_tag_get_value (DBPC_TAG (btag), &value, sizeof(BYTE));
     if (r == 0)
     {
         if (value > 0)
@@ -41,7 +41,6 @@ int dbpc_bool_read (DBPCTagBool *btag)
             btag->value = dfalse;
         }
     }
-    free (value);
     return 0;
 }
 
