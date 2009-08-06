@@ -85,7 +85,7 @@ void *dbpc_tag_get_data (DBPCTag *t)
 	}
 }
 
-int dbpc_tag_get_value (DBPCTag *t, BYTE **value)
+int dbpc_tag_get_value (DBPCTag *t, BYTE *value, size_t size)
 {
-    return t->connection->source->get_value (t->connection, t->address, value);
+    return t->connection->source->get_value (t->connection, t->address, value, size);
 }

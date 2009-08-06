@@ -21,14 +21,15 @@ void dbpc_int_write (DBPCTagInt *itag, int value)
 
 int dbpc_int_read (DBPCTagInt *itag)
 {
-    BYTE * value;// = malloc (sizeof (2*BYTE));
+    size_t size = 4;
+    BYTE * value = malloc (sizeof(int));
     int r;
-    r = dbpc_tag_get_value (DBPC_TAG (itag), &value);
+    r = dbpc_tag_get_value (DBPC_TAG (itag), value, size);
     if (r == 0)
     {
         memcpy (&itag->value, value, sizeof (int));
-        free (value);
     }
+    free (value);
     return 0;
 }
 

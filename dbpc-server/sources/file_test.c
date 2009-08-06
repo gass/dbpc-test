@@ -39,11 +39,9 @@ void file_connection_stop (DBPCConnection *cn) {
     }
 }
 
-int file_get_value (DBPCConnection * cn, const char *address, BYTE **value)
+int file_get_value (DBPCConnection * cn, const char *address, BYTE *value, size_t size)
 {
     /* dummy function */
-    BYTE * value2 = malloc (4*sizeof (BYTE));
-    value2[0] = 20;
-    *value = value2;
+    value[0] = 20;
     return 0;
 }
