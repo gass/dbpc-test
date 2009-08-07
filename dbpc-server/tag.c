@@ -89,3 +89,56 @@ int dbpc_tag_get_value (DBPCTag *t, BYTE *value, size_t size)
 {
     return t->connection->source->get_value (t->connection, t->address, value, size);
 }
+
+int dbpc_tag_set_value (DBPCTag *t)
+{
+	if (dbpc_get_operation (t) > 0)
+	{
+		/* in the next access to this variable, it will write */
+		dbpc_set_operation (, char op)
+		return 0;
+	}
+	else
+	{
+		/* it has no write permission */
+		return 1;
+	}
+}
+
+int dbpc_get_write_permission (DBPCTag *t)
+{
+	if (t->permission > 0)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+int dbpc_set_operation (DBPCTag *t, char op)
+{
+	int r = 0;
+	if (!dbpc_get_write_permission (t))
+	{
+		t->operation = R;
+		return 0;
+	}
+
+	switch (op)
+	{
+		case R:
+			t->operation = R;
+			break;
+		case RW:
+			t->operation = RW;
+			break;
+		case W:
+			t->operation = W;
+			break;
+		default:
+			r = 1;
+	}
+	return r;
+}
