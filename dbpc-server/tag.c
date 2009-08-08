@@ -31,15 +31,15 @@ static DBPCTag *dbpc_tag_new_empty(void)
 	t->connection = NULL;
 	t->timestamp = 0;
 	/* set permission 0, means set the default permission */
-	dbpc_tag_set_permission(t, DEFAULT_RW);
-	dbpc_tag_set_operation (t, DEFAULT_OP);
+	dbpc_tag_set_permission(t, DBPC_DEFAULT);
+	dbpc_tag_set_operation (t, DBPC_DEFAULT);
 	return t;
 }
 
 void dbpc_tag_set_permission(DBPCTag * t, int read_write)
 {
 	/* in case of error, sets the default permission */
-	if (read_write <= R || read_write > W || read_write == DEFAULT_RW)
+	if (read_write <= R || read_write > W || read_write == DBPC_DEFAULT)
 	{
 		t->permission = R;
 	}
@@ -160,14 +160,14 @@ int dbpc_tag_get_write_permission (DBPCTag *t)
 }
 /**
   * Defines what to do in the next loop */
-int dbpc_tag_set_operation (DBPCTag *t, char op)
+int dbpc_tag_set_operation (DBPCTag *t, int op)
 {
-	if ((op == DEFAULT_OP && t->update_mode == CONTINUOUS))
+	if ((op == DBPC_DEFAULT && t->update_mode == CONTINUOUS))
 	{
 		t->operation = R;
 		return 0;
 	}
-	if ((op == DEFAULT_OP && t->update_mode == CONTINUOUS))
+	if ((op == DBPC_DEFAULT && t->update_mode == ON_USE))
 	{
 		t->operation = NO_OP;
 		return 0;
@@ -188,7 +188,7 @@ int dbpc_tag_set_operation (DBPCTag *t, char op)
 			t->operation = NO_OP;
 			break;
 		default:
-			dbpc_tag_set_operation (t, DEFAULT_OP);
+			dbpc_tag_set_operation (t, DBPC_DEFAULT);
 	}
 	return 0;
 }
@@ -203,7 +203,7 @@ int dbpc_tag_process (DBPCTag * t)
 	{
 		case W:
 			printf ("write\n");
-			dbpc_tag_set_operation (t, DEFAULT_OP);
+			dbpc_tag_set_operation (t, DBPC_DEFAULT);
 			break;
 		case R:
 			printf ("read\n");
