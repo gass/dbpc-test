@@ -66,4 +66,7 @@ int dbpc_tag_get_value (DBPCTag *t, BYTE *value, size_t size);
 int dbpc_tag_set_value (DBPCTag *t);
 int dbpc_tag_get_operation (DBPCTag *t);
 int dbpc_tag_set_operation (DBPCTag *t, int op);
+void dbpc_tag_set_update_mode (DBPCTag *t, int update_mode);
+int dbpc_tag_get_upadate_mode (DBPCTag *t);
+
 #endif				/* TAG_H */

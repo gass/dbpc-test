@@ -192,6 +192,24 @@ int dbpc_tag_set_operation (DBPCTag *t, int op)
 	}
 	return 0;
 }
+
+void dbpc_tag_set_update_mode (DBPCTag *t, int update_mode)
+{
+	if (update_mode == CONTINUOUS)
+	{
+		t->update_mode = CONTINUOUS;
+	}
+	else
+	{
+		t->update_mode = ON_USE;
+	}
+}
+
+int dbpc_tag_get_upadate_mode (DBPCTag *t)
+{
+	return t->update_mode;
+	
+}
 /**
   * Processes a tag, meaning that if according to the permissions and the
   *  operation to be done
