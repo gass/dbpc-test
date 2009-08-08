@@ -39,7 +39,7 @@ static DBPCTag *dbpc_tag_new_empty(void)
 void dbpc_tag_set_permission(DBPCTag * t, int read_write)
 {
 	/* in case of error, sets the default permission */
-	if (read_write <= R || read_write > W || read_write == DBPC_DEFAULT)
+	if (read_write <= R || read_write > RW || read_write == DBPC_DEFAULT)
 	{
 		t->permission = R;
 	}
@@ -207,10 +207,13 @@ int dbpc_tag_process (DBPCTag * t)
 			break;
 		case R:
 			printf ("read\n");
+			dbpc_tag_set_operation (t, DBPC_DEFAULT);
 			break;
 		case NO_OP:
 			printf ("no_op\n");
 			break;
+		default:
+			dbpc_tag_set_operation (t, DBPC_DEFAULT);
 	}
 
 	return 0;
