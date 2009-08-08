@@ -7,6 +7,7 @@
 #include <time.h>
 
 #define DBPC_TAG(x) x->tag
+#define NO_OP 0
 
 enum update_mode { ON_USE = 0, CONTINUOUS };
 enum permission {R = 1, W, RW };
@@ -63,6 +64,6 @@ void dbpc_tag_free(DBPCTag * t);
 void *dbpc_tag_get_data (DBPCTag *t);
 int dbpc_tag_get_value (DBPCTag *t, BYTE *value, size_t size);
 int dbpc_tag_set_value (DBPCTag *t);
-int dbpc_get_operation (DBPCTag *t);
-int dbpc_set_operation (DBPCTag *t, char op);
+int dbpc_tag_get_operation (DBPCTag *t);
+int dbpc_tag_set_operation (DBPCTag *t, char op);
 #endif				/* TAG_H */

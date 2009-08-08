@@ -132,7 +132,7 @@ int dbpc_tag_set_value (DBPCTag *t)
 		/* in the next access to this tag,
 		 * it will write the value that the tag has.
 		 */
-		dbpc_set_operation (t, W);
+		dbpc_tag_set_operation (t, W);
 		return 0;
 	}
 	else
@@ -144,7 +144,7 @@ int dbpc_tag_set_value (DBPCTag *t)
 
 int dbpc_tag_get_write_permission (DBPCTag *t)
 {
-	if (t->permission > 0)
+	if (t->permission >= RW)
 	{
 		return 1;
 	}
@@ -155,7 +155,7 @@ int dbpc_tag_get_write_permission (DBPCTag *t)
 }
 /**
   * Defines what to do in the next loop */
-int dbpc_set_operation (DBPCTag *t, char op)
+int dbpc_tag_set_operation (DBPCTag *t, char op)
 {
 	int r = 0;
 	if (!dbpc_tag_get_write_permission (t))
@@ -186,11 +186,7 @@ int dbpc_set_operation (DBPCTag *t, char op)
   */
 int dbpc_tag_process (DBPCTag * t)
 {
-	if (t->update_mode == 0)
-	{
-		return 0;
-	}
-	
+	/* operate according */
 	switch (t->operation)
 	{
 		case W:
@@ -200,5 +196,6 @@ int dbpc_tag_process (DBPCTag * t)
 			printf ("read\n");
 			break;
 	}
+	dbpc_tag_set_operation (t, NO_OP);
 	return 0;
 }
