@@ -162,12 +162,12 @@ int dbpc_tag_get_permission (DBPCTag *t)
   * Defines what to do in the next loop */
 int dbpc_tag_set_operation (DBPCTag *t, int op)
 {
-	if ((op == DBPC_DEFAULT && t->update_mode == CONTINUOUS))
+	if ((op == DBPC_DEFAULT && dbpc_tag_get_update_mode(t) == CONTINUOUS))
 	{
 		t->operation = R;
 		return 0;
 	}
-	if ((op == DBPC_DEFAULT && t->update_mode == ON_USE))
+	if ((op == DBPC_DEFAULT && dbpc_tag_get_update_mode(t) == ON_USE))
 	{
 		t->operation = NO_OP;
 		return 0;
@@ -188,7 +188,7 @@ int dbpc_tag_set_operation (DBPCTag *t, int op)
 			t->operation = NO_OP;
 			break;
 		default:
-			dbpc_tag_set_operation (t, DBPC_DEFAULT);
+			return 1;
 	}
 	return 0;
 }
