@@ -146,15 +146,16 @@ int dbpc_tag_get_permission (DBPCTag *t)
 {
 	if (t->permission == RW)
 	{
-		return 1;
+		return RW;
 	}
 	if (t->permission == R)
 	{
-		return 0;
+		return R;
 	}
 	else
 	{
 		dbpc_tag_set_permission (t, DBPC_DEFAULT);
+		return dbpc_tag_get_permission (t);
 	}
 }
 /**
