@@ -13,6 +13,10 @@
  2 - print before memory functions
  100 - ALL
  */
+
+/* default option */ 
+#define DBPC_DEFAULT -1
+
 /* special types */
 /** boolean value */
 typedef char dbool;

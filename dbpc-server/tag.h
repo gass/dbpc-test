@@ -8,7 +8,6 @@
 
 #define DBPC_TAG(x) x->tag
 #define NO_OP 0
-#define DBPC_DEFAULT -1
 
 enum update_mode { ON_USE = 0, CONTINUOUS };
 enum permission { R = 1, W, RW };
