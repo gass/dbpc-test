@@ -38,14 +38,14 @@ static DBPCTag *dbpc_tag_new_empty(void)
 
 void dbpc_tag_set_permission(DBPCTag * t, int read_write)
 {
-	/* in case of error, sets the default permission */
-	if (read_write <= R || read_write > RW || read_write == DBPC_DEFAULT)
+	/* only 2 options: R or RW */
+	if (read_write == RW)
 	{
-		t->permission = R;
+		t->permission = RW;
 	}
 	else
 	{
-		t->permission = read_write;
+		t->permission = R;
 	}
 }
 
@@ -62,9 +62,6 @@ static char *dbpc_tag_dump_rw(DBPCTag * t)
 	switch (t->permission) {
 	case R:
 		return ("READ");
-		break;
-	case W:
-		return ("WRITE");
 		break;
 	case RW:
 		return ("READ/WRITE");
@@ -101,7 +98,7 @@ void *dbpc_tag_get_data (DBPCTag *t)
   */
 int dbpc_tag_get_value (DBPCTag *t, BYTE *value, size_t size)
 {
-    if (t->update_mode == ON_USE)
+    if (dbpc_tag_get_update_mode (t) == ON_USE)
 	{
 		/*
 		 * If the tag is only read on use, we must set it to be updated in the
@@ -110,8 +107,10 @@ int dbpc_tag_get_value (DBPCTag *t, BYTE *value, size_t size)
 		 * remove the get_value call, set the operation to READ, wait for 
 		 *  the tag to be updated and then return the value.
 		 */
-		return t->connection->source->get_value (t->connection,
-												 t->address, value, size);
+		dbpc_tag_set_operation (t, R);
+		return 0;
+//		return t->connection->source->get_value (t->connection,
+//												 t->address, value, size);
 	}
 	else
 	{
@@ -205,7 +204,7 @@ void dbpc_tag_set_update_mode (DBPCTag *t, int update_mode)
 	}
 }
 
-int dbpc_tag_get_upadate_mode (DBPCTag *t)
+int dbpc_tag_get_update_mode (DBPCTag *t)
 {
 	return t->update_mode;
 	
