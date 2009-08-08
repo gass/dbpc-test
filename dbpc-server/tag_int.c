@@ -14,9 +14,17 @@ DBPCTagInt * dbpc_int_new (DBPCConnection * cn,
     return itag;
 }
 
-void dbpc_int_write (DBPCTagInt *itag, int value)
+int dbpc_int_write (DBPCTagInt *itag, int value)
 {
-    itag->value = value;
+    if (dbpc_tag_set_value (DBPC_TAG (itag)) == 0)
+    {
+        itag->value = value;
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 int dbpc_int_read (DBPCTagInt *itag)

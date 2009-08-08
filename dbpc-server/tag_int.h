@@ -17,7 +17,7 @@ DBPCTagInt * dbpc_int_new (DBPCConnection * cn,
                            const char *tag_name,
                            const char *address);
 
-void dbpc_int_write (DBPCTagInt *itag, int value);
+int dbpc_int_write (DBPCTagInt *itag, int value);
 int dbpc_int_read (DBPCTagInt *itag);
 void dbpc_int_free (DBPCTagInt *itag);
 void dbpc_int_dump (DBPCTagInt * itag);

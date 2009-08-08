@@ -17,7 +17,7 @@ DBPCTagBool * dbpc_bool_new (DBPCConnection * cn,
                                  const char *tag_name,
                                  const char *address);
 
-void dbpc_bool_write (DBPCTagBool *btag, dbool value);
+int dbpc_bool_write (DBPCTagBool *btag, dbool value);
 int dbpc_bool_read (DBPCTagBool *btag);
 void dbpc_bool_free (DBPCTagBool *btag);
 void dbpc_bool_dump (DBPCTagBool * btag);

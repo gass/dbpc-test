@@ -13,15 +13,23 @@ DBPCTagBool * dbpc_bool_new (DBPCConnection * cn,
     return btag;
 }
 
-void dbpc_bool_write (DBPCTagBool *btag, dbool value)
+int dbpc_bool_write (DBPCTagBool *btag, dbool value)
 {
-    if (value)
+    if (dbpc_tag_set_value (DBPC_TAG(btag)) == 0)
     {
-        btag->value = dtrue;
+        if (value)
+        {
+            btag->value = dtrue;
+        }
+        else
+        {
+            btag->value = dfalse;
+        }
+        return 0;
     }
     else
     {
-        btag->value = dfalse;
+        return 1;
     }
 }
 
