@@ -8,6 +8,7 @@
 #include <time.h>
 
 static char *dbpc_tag_dump_rw(DBPCTag * t);
+static char *dbpc_tag_dump_operation(DBPCTag *t);
 static DBPCTag *dbpc_tag_new_empty(void);
 
 DBPCTag *dbpc_tag_new(DBPCConnection * cn, const char *tag_name,
@@ -54,6 +55,7 @@ void dbpc_tag_dump(DBPCTag * t)
 	printf("TAG NAME: %s\n", t->name);
 	printf("TAG ADDRESS: %s\n", t->address);
 	printf("TAG PERMISSION: %s\n", dbpc_tag_dump_rw(t));
+	printf("TAG OPERATION: %s\n", dbpc_tag_dump_operation(t));
 	printf("TAG TIMESTAMP: %ld\n", t->timestamp);
 }
 
@@ -66,6 +68,26 @@ static char *dbpc_tag_dump_rw(DBPCTag * t)
 	case RW:
 		return ("READ/WRITE");
 		break;
+	}
+	return NULL;
+}
+
+static char *dbpc_tag_dump_operation(DBPCTag *t)
+{
+	switch (dbpc_tag_get_operation(t))
+	{
+		case R:
+			return ("READ");
+			break;
+		case W:
+			return ("WRITE");
+			break;
+		case RW:
+			return ("READ/WRITE");
+			break;
+		case NO_OP:
+			return ("NO Operation");
+			break;
 	}
 	return NULL;
 }
@@ -191,6 +213,12 @@ int dbpc_tag_set_operation (DBPCTag *t, int op)
 			return 1;
 	}
 	return 0;
+}
+
+int dbpc_tag_get_operation (DBPCTag *t)
+{
+	return t->operation;
+	
 }
 
 void dbpc_tag_set_update_mode (DBPCTag *t, int update_mode)
