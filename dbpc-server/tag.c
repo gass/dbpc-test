@@ -38,7 +38,7 @@ static DBPCTag *dbpc_tag_new_empty(void)
 void dbpc_tag_set_permission(DBPCTag * t, int read_write)
 {
 	/* in case od error, sets the default permission */
-	if (read_write < 1 || read_write > 3)
+	if (read_write <= R || read_write > W)
 	{
 		t->permission = R;
 	}
@@ -127,7 +127,7 @@ int dbpc_tag_get_value (DBPCTag *t, BYTE *value, size_t size)
 int dbpc_tag_set_value (DBPCTag *t)
 {
 	/* check if we have write permission */
-	if (dbpc_tag_get_write_permission (t) > 0)
+	if (dbpc_tag_get_write_permission (t) == 1)
 	{
 		/* in the next access to this tag,
 		 * it will write the value that the tag has.
@@ -144,13 +144,17 @@ int dbpc_tag_set_value (DBPCTag *t)
 
 int dbpc_tag_get_write_permission (DBPCTag *t)
 {
-	if (t->permission >= RW)
+	if (t->permission == RW || t->permission == W)
 	{
 		return 1;
 	}
-	else
+	if (t->permission == R)
 	{
 		return 0;
+	}
+	else
+	{
+		dbpc_tag_set_permission (t, 0);
 	}
 }
 /**
