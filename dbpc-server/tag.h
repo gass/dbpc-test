@@ -9,7 +9,7 @@
 #define DBPC_TAG(x) x->tag
 
 enum update_mode { ON_USE = 0, CONTINUOUS };
-enum permission { R = 0, W, RW };
+enum permission {R = 1, W, RW };
 
 typedef struct _DBPCTag DBPCTag;
 
@@ -23,9 +23,9 @@ typedef struct _DBPCTag DBPCTag;
  * @validity: Stores the time for witch the tag's value is valid. Given in seconds.
  * @update_mode: corresponds to the update: 0-on use, 1-continuous.
  * @permission: What permissions does DBPC have to this value:
- * 0-read(R)
- * 1-write (W)
- * 2-read and write (RW);
+ * 1-read(R)
+ * 2-write (W)
+ * 3-read and write (RW);
  * @operation: operation to do in the next loop: 0-read, 1-write;
  * @user_permissions: needs more reasearch (not used yet).
  * @events: custom associated events and callbacks.

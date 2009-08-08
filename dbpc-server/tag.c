@@ -30,12 +30,22 @@ static DBPCTag *dbpc_tag_new_empty(void)
 	t->events = NULL;
 	t->connection = NULL;
 	t->timestamp = 0;
+	/* set permission 0, means set the default permission */
+	dbpc_tag_set_permission(t, 0);
 	return t;
 }
 
 void dbpc_tag_set_permission(DBPCTag * t, int read_write)
 {
-	t->permission = read_write;
+	/* in case od error, sets the default permission */
+	if (read_write < 1 || read_write > 3)
+	{
+		t->permission = R;
+	}
+	else
+	{
+		t->permission = read_write;
+	}
 }
 
 void dbpc_tag_dump(DBPCTag * t)
@@ -84,18 +94,45 @@ void *dbpc_tag_get_data (DBPCTag *t)
 		return t->tag_data;
 	}
 }
-
+/**
+  * This function retrieves the tag value.
+  * If this tag has not continuous read, it will force the read from the source.
+  */
 int dbpc_tag_get_value (DBPCTag *t, BYTE *value, size_t size)
 {
-    return t->connection->source->get_value (t->connection, t->address, value, size);
+    if (t->update_mode == ON_USE)
+	{
+		/*
+		 * If the tag is only read on use, we must set it to be updated in the
+		 *  next loop.
+		 * TODO:
+		 * remove the get_value call, set the operation to READ, wait for 
+		 *  the tag to be updated and then return the value.
+		 */
+		return t->connection->source->get_value (t->connection,
+												 t->address, value, size);
+	}
+	else
+	{
+		/* if it is read continuously, we don't need to request an update, since
+		 *  it is already up-to-date.
+		 */
+		return 10;
+	}
 }
 
+/**
+ * Sets that this tag must be written in the next update.
+ */
 int dbpc_tag_set_value (DBPCTag *t)
 {
-	if (dbpc_get_operation (t) > 0)
+	/* check if we have write permission */
+	if (dbpc_tag_get_write_permission (t) > 0)
 	{
-		/* in the next access to this variable, it will write */
-		dbpc_set_operation (, char op)
+		/* in the next access to this tag,
+		 * it will write the value that the tag has.
+		 */
+		dbpc_set_operation (t, W);
 		return 0;
 	}
 	else
@@ -105,7 +142,7 @@ int dbpc_tag_set_value (DBPCTag *t)
 	}
 }
 
-int dbpc_get_write_permission (DBPCTag *t)
+int dbpc_tag_get_write_permission (DBPCTag *t)
 {
 	if (t->permission > 0)
 	{
@@ -116,11 +153,12 @@ int dbpc_get_write_permission (DBPCTag *t)
 		return 0;
 	}
 }
-
+/**
+  * Defines what to do in the next loop */
 int dbpc_set_operation (DBPCTag *t, char op)
 {
 	int r = 0;
-	if (!dbpc_get_write_permission (t))
+	if (!dbpc_tag_get_write_permission (t))
 	{
 		t->operation = R;
 		return 0;
@@ -141,4 +179,26 @@ int dbpc_set_operation (DBPCTag *t, char op)
 			r = 1;
 	}
 	return r;
+}
+/**
+  * Processes a tag, meaning that if according to the permissions and the
+  *  operation to be done
+  */
+int dbpc_tag_process (DBPCTag * t)
+{
+	if (t->update_mode == 0)
+	{
+		return 0;
+	}
+	
+	switch (t->operation)
+	{
+		case W:
+			printf ("write\n");
+			break;
+		case R:
+			printf ("read\n");
+			break;
+	}
+	return 0;
 }
