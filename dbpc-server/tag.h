@@ -59,6 +59,7 @@ struct _DBPCTag {
 DBPCTag *dbpc_tag_new(DBPCConnection * cn, const char *tag_name,
 		      const char *address);
 void dbpc_tag_set_permission(DBPCTag * t, int read_write);
+int dbpc_tag_get_permission(DBPCTag *t);
 void dbpc_tag_dump(DBPCTag * t);
 void dbpc_tag_free(DBPCTag * t);
 void *dbpc_tag_get_data (DBPCTag *t);

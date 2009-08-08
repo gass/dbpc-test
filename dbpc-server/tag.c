@@ -127,7 +127,7 @@ int dbpc_tag_get_value (DBPCTag *t, BYTE *value, size_t size)
 int dbpc_tag_set_value (DBPCTag *t)
 {
 	/* check if we have write permission */
-	if (dbpc_tag_get_write_permission (t) == 1)
+	if (dbpc_tag_get_permission (t) == RW)
 	{
 		/* in the next access to this tag,
 		 * it will write the value that the tag has.
@@ -142,9 +142,9 @@ int dbpc_tag_set_value (DBPCTag *t)
 	}
 }
 
-int dbpc_tag_get_write_permission (DBPCTag *t)
+int dbpc_tag_get_permission (DBPCTag *t)
 {
-	if (t->permission == RW || t->permission == W)
+	if (t->permission == RW)
 	{
 		return 1;
 	}
@@ -154,7 +154,7 @@ int dbpc_tag_get_write_permission (DBPCTag *t)
 	}
 	else
 	{
-		dbpc_tag_set_permission (t, 0);
+		dbpc_tag_set_permission (t, DBPC_DEFAULT);
 	}
 }
 /**
