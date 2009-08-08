@@ -8,9 +8,11 @@
 
 #define DBPC_TAG(x) x->tag
 #define NO_OP 0
+#define DEFAULT_OP -1
+#define DEFAULT_RW -1
 
 enum update_mode { ON_USE = 0, CONTINUOUS };
-enum permission {R = 1, W, RW };
+enum permission { R = 1, W, RW };
 
 typedef struct _DBPCTag DBPCTag;
 

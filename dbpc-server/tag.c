@@ -31,14 +31,15 @@ static DBPCTag *dbpc_tag_new_empty(void)
 	t->connection = NULL;
 	t->timestamp = 0;
 	/* set permission 0, means set the default permission */
-	dbpc_tag_set_permission(t, 0);
+	dbpc_tag_set_permission(t, DEFAULT_RW);
+	dbpc_tag_set_operation (t, DEFAULT_OP);
 	return t;
 }
 
 void dbpc_tag_set_permission(DBPCTag * t, int read_write)
 {
-	/* in case od error, sets the default permission */
-	if (read_write <= R || read_write > W)
+	/* in case of error, sets the default permission */
+	if (read_write <= R || read_write > W || read_write == DEFAULT_RW)
 	{
 		t->permission = R;
 	}
@@ -161,10 +162,14 @@ int dbpc_tag_get_write_permission (DBPCTag *t)
   * Defines what to do in the next loop */
 int dbpc_tag_set_operation (DBPCTag *t, char op)
 {
-	int r = 0;
-	if (!dbpc_tag_get_write_permission (t))
+	if ((op == DEFAULT_OP && t->update_mode == CONTINUOUS))
 	{
 		t->operation = R;
+		return 0;
+	}
+	if ((op == DEFAULT_OP && t->update_mode == CONTINUOUS))
+	{
+		t->operation = NO_OP;
 		return 0;
 	}
 
@@ -179,10 +184,13 @@ int dbpc_tag_set_operation (DBPCTag *t, char op)
 		case W:
 			t->operation = W;
 			break;
+		case NO_OP:
+			t->operation = NO_OP;
+			break;
 		default:
-			r = 1;
+			dbpc_tag_set_operation (t, DEFAULT_OP);
 	}
-	return r;
+	return 0;
 }
 /**
   * Processes a tag, meaning that if according to the permissions and the
@@ -195,11 +203,15 @@ int dbpc_tag_process (DBPCTag * t)
 	{
 		case W:
 			printf ("write\n");
+			dbpc_tag_set_operation (t, DEFAULT_OP);
 			break;
 		case R:
 			printf ("read\n");
 			break;
+		case NO_OP:
+			printf ("no_op\n");
+			break;
 	}
-	dbpc_tag_set_operation (t, NO_OP);
+
 	return 0;
 }
