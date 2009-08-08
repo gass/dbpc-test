@@ -59,7 +59,7 @@ void dbpc_tag_dump(DBPCTag * t)
 
 static char *dbpc_tag_dump_rw(DBPCTag * t)
 {
-	switch (t->permission) {
+	switch (dbpc_tag_get_permission(t)) {
 	case R:
 		return ("READ");
 		break;
