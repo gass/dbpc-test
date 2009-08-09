@@ -257,12 +257,18 @@ int dbpc_tag_get_update_mode (DBPCTag *t)
   */
 int dbpc_tag_process (DBPCTag * t)
 {
+	BYTE *value = NULL;
+	DBPCConnection *cn = t->connection;
+	DBPCSource *source = cn->source;
 	/* operate according */
 	switch (t->operation)
 	{
 		case W:
-			printf ("write\n");
+			value = malloc (t->value_size);
+			t->tag_to_byte(t, value);
+			source->set_value(cn, t->address, value, t->value_size);
 			dbpc_tag_set_operation (t, DBPC_DEFAULT);
+			free (value);
 			break;
 		case R:
 			printf ("read\n");
