@@ -5,7 +5,7 @@
 #include "tag.h"
 #include "dbpc.h"
 
-#define DBPC_TAG_INT(x) dbpc_tag_get_data (x)
+#define DBPC_TAG_INT(x) ((DBPCTagInt *) dbpc_tag_get_data (x))
 typedef struct _DBPCTagInt DBPCTagInt;
 
 struct _DBPCTagInt {
@@ -21,4 +21,6 @@ int dbpc_int_write (DBPCTagInt *itag, int value);
 int dbpc_int_read (DBPCTagInt *itag);
 void dbpc_int_free (DBPCTagInt *itag);
 void dbpc_int_dump (DBPCTagInt * itag);
+void dbpc_int_from_byte (DBPCTag *t, BYTE *value);
+void dbpc_int_to_byte(DBPCTag *t, BYTE *value);
 #endif /* TAG_INT_H */

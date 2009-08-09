@@ -32,10 +32,13 @@ typedef struct _DBPCTag DBPCTag;
  * @events: custom associated events and callbacks.
  * @connection: connection to be used.
  * @tag_data: stores the data pointer (for #DBPCTagBool, for example)
+ * @value_size: the memory occupied by the value, in bytes.
  * @next: the next #DBPCTag in the tag list.
  *
  * All data points available trough DBPC are represented by a Tag object.
  */
+typedef void (* TagToByte) (DBPCTag *t, BYTE *value);
+typedef void (* TagFromByte) (DBPCTag *t, BYTE *value);
 
 struct _DBPCTag {
 	char *name;
@@ -50,6 +53,9 @@ struct _DBPCTag {
 	void *events;
 	
     void *tag_data;
+    size_t value_size;
+    TagFromByte tag_from_byte;
+    TagToByte tag_to_byte;
     
 	DBPCConnection *connection;
 	DBPCTag *next;

@@ -6,7 +6,7 @@
 #include "dbpc.h"
 
 typedef struct _DBPCTagBool DBPCTagBool;
-#define DBPC_TAG_BOOL(x) dbpc_tag_get_data (x)
+#define DBPC_TAG_BOOL(x) ((DBPCTagBool *)dbpc_tag_get_data (x))
 
 struct _DBPCTagBool {
     DBPCTag *tag;
@@ -21,4 +21,6 @@ int dbpc_bool_write (DBPCTagBool *btag, dbool value);
 int dbpc_bool_read (DBPCTagBool *btag);
 void dbpc_bool_free (DBPCTagBool *btag);
 void dbpc_bool_dump (DBPCTagBool * btag);
+void dbpc_bool_from_byte (DBPCTag *t, BYTE *value);
+void dbpc_bool_to_byte(DBPCTag *t, BYTE *value);
 #endif /* TAG_BOOL_H */

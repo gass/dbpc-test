@@ -11,6 +11,9 @@ DBPCTagInt * dbpc_int_new (DBPCConnection * cn,
     DBPCTagInt *itag = malloc (sizeof (DBPCTagInt));
     itag->tag = dbpc_tag_new(cn, tag_name, address);
     itag->tag->tag_data = itag;
+    itag->tag->value_size = sizeof (int);
+    itag->tag->tag_from_byte = &dbpc_int_from_byte;
+    itag->tag->tag_to_byte = &dbpc_int_to_byte;
     return itag;
 }
 
@@ -51,4 +54,14 @@ void dbpc_int_dump (DBPCTagInt * itag)
 {
     dbpc_tag_dump (DBPC_TAG(itag));
     printf ("TAG INT VALUE: %d\n", itag->value);
+}
+
+void dbpc_int_from_byte (DBPCTag *t, BYTE *value)
+{
+    memcpy (&(DBPC_TAG_INT(t)->value), value, t->value_size);
+}
+
+void dbpc_int_to_byte(DBPCTag *t, BYTE *value)
+{
+    memcpy (value, &(DBPC_TAG_INT(t)->value), t->value_size);
 }
