@@ -11,6 +11,9 @@ static char *dbpc_tag_dump_rw(DBPCTag * t);
 static char *dbpc_tag_dump_operation(DBPCTag *t);
 static DBPCTag *dbpc_tag_new_empty(void);
 
+/**
+  * Creates a new tag.
+  */
 DBPCTag *dbpc_tag_new(DBPCConnection * cn, const char *tag_name,
 		      const char *address)
 {
@@ -21,7 +24,10 @@ DBPCTag *dbpc_tag_new(DBPCConnection * cn, const char *tag_name,
 	t->connection = cn;
 	return t;
 }
-
+/**
+  * Initiates a new empty tag.
+  * All values are set for empty and/or default.
+  */
 static DBPCTag *dbpc_tag_new_empty(void)
 {
 	DBPCTag *t = malloc(sizeof(DBPCTag));
@@ -31,7 +37,6 @@ static DBPCTag *dbpc_tag_new_empty(void)
 	t->events = NULL;
 	t->connection = NULL;
 	t->timestamp = 0;
-	/* set permission 0, means set the default permission */
 	dbpc_tag_set_permission(t, DBPC_DEFAULT);
 	dbpc_tag_set_operation (t, DBPC_DEFAULT);
 	return t;
