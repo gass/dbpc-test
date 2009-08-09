@@ -24,6 +24,7 @@ DBPCTag *dbpc_tag_new(DBPCConnection * cn, const char *tag_name,
 	t->connection = cn;
 	return t;
 }
+
 /**
   * Initiates a new empty tag.
   * All values are set for empty and/or default.
@@ -44,7 +45,10 @@ static DBPCTag *dbpc_tag_new_empty(void)
 
 void dbpc_tag_set_permission(DBPCTag * t, int read_write)
 {
-	/* only 2 options: R or RW */
+	/*
+	 * Only 2 options: R or RW.
+	 * Defaults for R;
+	 */
 	if (read_write == RW)
 	{
 		t->permission = RW;
