@@ -239,8 +239,8 @@ int dbpc_tag_get_update_mode (DBPCTag *t)
 	
 }
 /**
-  * Processes a tag, meaning that if according to the permissions and the
-  *  operation to be done
+  * Processes a tag.
+  * Reads, writes, or does nothing, according to the operation defined.
   */
 int dbpc_tag_process (DBPCTag * t)
 {
