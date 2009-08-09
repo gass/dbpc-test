@@ -73,7 +73,10 @@ dbpc_source_free_from_list_aux(DBPCSource * source, DBPCSource * src)
 		dbpc_source_free_from_list_aux(source->next, src);
 	}
 }
-
+/**
+  * Makes a new source driver available.
+ * TODO: verifications and error output.
+ */
 void dbpc_source_load (const char *filename) {
 	DBPCSource *src;
 	void * handle = NULL;
