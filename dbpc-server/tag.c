@@ -126,7 +126,7 @@ void *dbpc_tag_get_data (DBPCTag *t)
   * This function retrieves the tag value.
   * If this tag has not continuous read, it will force the read from the source.
   */
-int dbpc_tag_get_value (DBPCTag *t, BYTE *value, size_t size)
+int dbpc_tag_get_value (DBPCTag *t)
 {
     if (dbpc_tag_get_update_mode (t) == ON_USE)
 	{

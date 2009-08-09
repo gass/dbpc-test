@@ -38,20 +38,7 @@ int dbpc_bool_write (DBPCTagBool *btag, dbool value)
 
 int dbpc_bool_read (DBPCTagBool *btag)
 {
-    BYTE value;
-    int r;
-    r = dbpc_tag_get_value (DBPC_TAG (btag), &value, sizeof(BYTE));
-    if (r == 0)
-    {
-        if (value > 0)
-        {
-            btag->value = dtrue;
-        }
-        else
-        {
-            btag->value = dfalse;
-        }
-    }
+    dbpc_tag_get_value (DBPC_TAG (btag));
     return 0;
 }
 

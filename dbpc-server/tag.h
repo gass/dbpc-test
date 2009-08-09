@@ -69,7 +69,7 @@ int dbpc_tag_get_permission(DBPCTag *t);
 void dbpc_tag_dump(DBPCTag * t);
 void dbpc_tag_free(DBPCTag * t);
 void *dbpc_tag_get_data (DBPCTag *t);
-int dbpc_tag_get_value (DBPCTag *t, BYTE *value, size_t size);
+int dbpc_tag_get_value (DBPCTag *t);
 int dbpc_tag_set_value (DBPCTag *t);
 int dbpc_tag_get_operation (DBPCTag *t);
 int dbpc_tag_set_operation (DBPCTag *t, int op);
