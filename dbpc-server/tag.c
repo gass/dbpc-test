@@ -192,6 +192,11 @@ int dbpc_tag_get_permission (DBPCTag *t)
   * Defines what to do in the next loop */
 int dbpc_tag_set_operation (DBPCTag *t, int op)
 {
+	/*
+	 ** DEFAULT OPTIONS **
+	 * If the update mode is set to CONTINUOUS, then the default operation is READ.
+	 * If the update mode is set to ON_USE, there is nothing to do.
+	 */
 	if ((op == DBPC_DEFAULT && dbpc_tag_get_update_mode(t) == CONTINUOUS))
 	{
 		t->operation = R;
