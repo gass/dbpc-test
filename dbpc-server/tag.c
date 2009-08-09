@@ -77,8 +77,9 @@ static char *dbpc_tag_dump_rw(DBPCTag * t)
 	case RW:
 		return ("READ/WRITE");
 		break;
+	default:
+		return ("INVALID OPTION");
 	}
-	return NULL;
 }
 
 static char *dbpc_tag_dump_operation(DBPCTag *t)
@@ -91,14 +92,12 @@ static char *dbpc_tag_dump_operation(DBPCTag *t)
 		case W:
 			return ("WRITE");
 			break;
-		case RW:
-			return ("READ/WRITE");
-			break;
 		case NO_OP:
 			return ("NO Operation");
 			break;
+		default:
+			return ("INVALID OPTION");
 	}
-	return NULL;
 }
 
 void dbpc_tag_free(DBPCTag * t)
