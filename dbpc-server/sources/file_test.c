@@ -45,3 +45,9 @@ int file_get_value (DBPCConnection * cn, const char *address, BYTE *value, size_
     value[0] = 20;
     return 0;
 }
+
+int file_set_value (DBPCConnection * cn, const char *address, BYTE *value, size_t size)
+{
+    /* dummy function */
+    return 0;
+}

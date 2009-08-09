@@ -122,5 +122,9 @@ void dbpc_source_load (const char *filename) {
 	src->get_value = dlsym(handle, pchr);
 	free(pchr);
 	
+	pchr = strdup_printf("%s_set_value", id);
+	src->set_value = dlsym(handle, pchr);
+	free(pchr);
+	
 	dbpc_source_list_add (src);
 }

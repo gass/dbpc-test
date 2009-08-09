@@ -41,7 +41,7 @@ struct _DBPCSource {
     int (*get_value) (DBPCConnection * cn, const char *address,
 			  BYTE *value, size_t size);
 	int (*set_value) (DBPCConnection * cn, const char *address,
-			  BYTE *value);
+			  BYTE *value, size_t size);
 	int (*monitor_value) (DBPCConnection * cn, const char *address,
 			      BYTE * value);
 
