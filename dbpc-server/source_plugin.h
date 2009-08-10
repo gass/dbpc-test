@@ -20,6 +20,7 @@ typedef struct _DBPCSource DBPCSource;
 struct _DBPCConnection {
 	int fd;
 	int status;
+	char * connection_string;
 	DBPCSource *source;
 };
 
@@ -36,7 +37,7 @@ struct _DBPCConnection {
 struct _DBPCSource {
 	char *name;
 	char *description;
-	void (*connection_start) (DBPCConnection * cn, const char *filename);
+	void (*connection_start) (DBPCConnection * cn);
 	void (*connection_stop) (DBPCConnection * cn);
     int (*get_value) (DBPCConnection * cn, const char *address,
 			  BYTE *value, size_t size);

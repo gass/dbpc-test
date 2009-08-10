@@ -20,8 +20,8 @@ char * file_get_description (void) {
     return SOURCE_DESCRIPTION;
 }
 
-void file_connection_start (DBPCConnection *cn, const char * filename) {
-    cn->fd = open (filename, O_CREAT);
+void file_connection_start (DBPCConnection *cn) {
+    cn->fd = open (cn->connection_string, O_CREAT);
     if ( cn->fd == -1) {
         cn->status = ERROR;
     }
@@ -43,7 +43,8 @@ int file_get_value (DBPCConnection * cn, const char *address, BYTE *value, size_
 {
     printf ("FILE GET VAR SIZE: %d\n", (int)size);
     /* dummy function */
-    value[0] = 20;
+
+    printf ("GET ERROR %d VALUE %d\n",     (int) read (cn->fd, value, size), (int) *value);
     return 0;
 }
 
