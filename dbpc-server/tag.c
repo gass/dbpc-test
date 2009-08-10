@@ -264,6 +264,7 @@ int dbpc_tag_process (DBPCTag * t)
 	switch (t->operation)
 	{
 		case W:
+			printf("write\n");
 			value = malloc (t->value_size);
 			t->tag_to_byte(t, value);
 			source->set_value(cn, t->address, value, t->value_size);
@@ -272,7 +273,11 @@ int dbpc_tag_process (DBPCTag * t)
 			break;
 		case R:
 			printf ("read\n");
+			value = malloc (t->value_size);
+			source->get_value(cn, t->address, value, t->value_size);
+			t->tag_from_byte(t, value);
 			dbpc_tag_set_operation (t, DBPC_DEFAULT);
+			free (value);
 			break;
 		case NO_OP:
 			printf ("no_op\n");
