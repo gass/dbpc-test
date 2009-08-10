@@ -41,6 +41,7 @@ void file_connection_stop (DBPCConnection *cn) {
 
 int file_get_value (DBPCConnection * cn, const char *address, BYTE *value, size_t size)
 {
+    printf ("FILE GET VAR SIZE: %d\n", (int)size);
     /* dummy function */
     value[0] = 20;
     return 0;
@@ -48,6 +49,7 @@ int file_get_value (DBPCConnection * cn, const char *address, BYTE *value, size_
 
 int file_set_value (DBPCConnection * cn, const char *address, BYTE *value, size_t size)
 {
+    printf ("FILE SET VAR SIZE: %d\n", (int)size);
     /* dummy function */
     return 0;
 }
