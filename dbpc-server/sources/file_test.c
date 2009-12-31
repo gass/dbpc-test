@@ -3,6 +3,7 @@
 #include <fcntl.h>
 #include "source_plugin.h"
 #include <stdlib.h>
+#include <string.h>
 
 #define SOURCE_NAME_ID "file"
 #define SOURCE_NAME "file common name"
@@ -41,10 +42,16 @@ void file_connection_stop (DBPCConnection *cn) {
 
 int file_get_value (DBPCConnection * cn, const char *address, BYTE *value, size_t size)
 {
+    size_t max_size = 12;
+    int s;
+    char * at;
+    BYTE *read_val = malloc (max_size);
     printf ("FILE GET VAR SIZE: %d\n", (int)size);
     /* dummy function */
-
-    printf ("GET ERROR %d VALUE %d\n",     (int) read (cn->fd, value, size), (int) *value);
+    s = read (cn->fd, read_val, max_size);
+    at = atoi (read_val);
+    memcpy (value, at, size);
+    printf ("GET ERROR %d VALUE %d\n",(int) s, (int) *value);
     return 0;
 }
 
