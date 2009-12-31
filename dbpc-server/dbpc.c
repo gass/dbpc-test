@@ -56,14 +56,14 @@ void create_source(void)
 	printf ("descrition: %s\n", src->description);
 	cn = dbpc_connection_new(src, "/home/gass/Desktop/tt.txt");
 	/* bool tag */
-	btag = dbpc_bool_new(cn, "Luis Luis", "M100.0");
+	btag = dbpc_bool_new(cn, "Luis Luis", "bool");
 	dbpc_tag_set_permission (DBPC_TAG(btag), R);
 	dbpc_tag_list_add(DBPC_TAG(btag));
 	dbpc_bool_dump (btag);
 	printf ("COUNT %d\n", dbpc_tag_list_count ());
 	
 	/* bool int */
-	itag = dbpc_int_new(cn, "Luis Luis2", "M100.0");
+	itag = dbpc_int_new(cn, "Luis Luis2", "int");
 	dbpc_int_dump (itag);
 	dbpc_tag_set_update_mode (DBPC_TAG(itag), CONTINUOUS);
 	dbpc_tag_set_permission (DBPC_TAG(itag), RW);
@@ -79,9 +79,13 @@ void create_source(void)
 	dbpc_int_read (itag);
 	dbpc_int_dump (itag);
 	
-	dbpc_tag_process (DBPC_TAG(itag));
-	dbpc_tag_process (DBPC_TAG(itag));
-	dbpc_tag_process (DBPC_TAG(btag));
+		dbpc_connection_start (cn);
+		dbpc_tag_process (DBPC_TAG(itag));
+		dbpc_tag_process (DBPC_TAG(itag));
+		dbpc_int_dump (itag);
+		dbpc_tag_process (DBPC_TAG(btag));
+		dbpc_bool_dump (btag);
+		dbpc_connection_stop (cn);
 	
 	printf ("COUNT %d\n", dbpc_tag_list_count ());
 	dbpc_tag_list_remove (DBPC_TAG(btag));
