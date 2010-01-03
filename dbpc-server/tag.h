@@ -37,9 +37,6 @@ typedef struct _DBPCTag DBPCTag;
  *
  * All data points available trough DBPC are represented by a Tag object.
  */
-typedef void (* TagToByte) (DBPCTag *t, BYTE *value);
-typedef void (* TagFromByte) (DBPCTag *t, BYTE *value);
-
 struct _DBPCTag {
 	char *name;
 	char *address;
@@ -60,6 +57,8 @@ struct _DBPCTag {
 	DBPCConnection *connection;
 	DBPCTag *next;
 };
+typedef void (* TagToByte) (DBPCTag *t, BYTE *value);
+typedef void (* TagFromByte) (DBPCTag *t, BYTE *value);
 
 /* function declarations */
 DBPCTag *dbpc_tag_new(DBPCConnection * cn, const char *tag_name,
@@ -75,5 +74,6 @@ int dbpc_tag_get_operation (DBPCTag *t);
 int dbpc_tag_set_operation (DBPCTag *t, int op);
 void dbpc_tag_set_update_mode (DBPCTag *t, int update_mode);
 int dbpc_tag_get_update_mode (DBPCTag *t);
+int dbpc_tag_process (DBPCTag * t);
 
 #endif				/* TAG_H */
