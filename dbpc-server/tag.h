@@ -14,6 +14,9 @@ enum permission { R = 1, W, RW };
 
 typedef struct _DBPCTag DBPCTag;
 
+typedef void (* TagToByte) (DBPCTag *t, BYTE *value);
+typedef void (* TagFromByte) (DBPCTag *t, BYTE *value);
+
 /**
  * DBPCTag:
  * @name: Stores the name of the tag.
@@ -57,8 +60,6 @@ struct _DBPCTag {
 	DBPCConnection *connection;
 	DBPCTag *next;
 };
-typedef void (* TagToByte) (DBPCTag *t, BYTE *value);
-typedef void (* TagFromByte) (DBPCTag *t, BYTE *value);
 
 /* function declarations */
 DBPCTag *dbpc_tag_new(DBPCConnection * cn, const char *tag_name,
