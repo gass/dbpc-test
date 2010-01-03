@@ -42,10 +42,10 @@ void dbpc_int_free (DBPCTagInt *itag)
     free (itag);
 }
 
-void dbpc_int_dump (DBPCTagInt * itag)
+void dbpc_int_dump (DBPCTag *t)
 {
-    dbpc_tag_dump (DBPC_TAG(itag));
-    printf ("TAG INT VALUE: %d\n", itag->value);
+    dbpc_tag_dump (t);
+    printf ("TAG INT VALUE: %d\n", DBPC_TAG_INT(t)->value);
 }
 
 void dbpc_int_from_byte (DBPCTag *t, BYTE *value)

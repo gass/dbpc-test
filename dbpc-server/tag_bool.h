@@ -20,7 +20,7 @@ DBPCTagBool * dbpc_bool_new (DBPCConnection * cn,
 int dbpc_bool_write (DBPCTagBool *btag, dbool value);
 int dbpc_bool_read (DBPCTagBool *btag);
 void dbpc_bool_free (DBPCTagBool *btag);
-void dbpc_bool_dump (DBPCTagBool * btag);
+void dbpc_bool_dump (DBPCTag *t);
 void dbpc_bool_from_byte (DBPCTag *t, BYTE *value);
 void dbpc_bool_to_byte(DBPCTag *t, BYTE *value);
 #endif /* TAG_BOOL_H */

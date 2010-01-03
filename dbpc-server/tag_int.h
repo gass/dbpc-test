@@ -20,7 +20,7 @@ DBPCTagInt * dbpc_int_new (DBPCConnection * cn,
 int dbpc_int_write (DBPCTagInt *itag, int value);
 int dbpc_int_read (DBPCTagInt *itag);
 void dbpc_int_free (DBPCTagInt *itag);
-void dbpc_int_dump (DBPCTagInt * itag);
+void dbpc_int_dump (DBPCTag *itag);
 void dbpc_int_from_byte (DBPCTag *t, BYTE *value);
 void dbpc_int_to_byte(DBPCTag *t, BYTE *value);
 #endif /* TAG_INT_H */
