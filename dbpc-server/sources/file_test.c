@@ -14,6 +14,10 @@ enum address_type { invalid_address, boolean, integer };
 /* static elements */
 static int file_parse_address (const char *address, int *byte_addr, int *bit_addr);
 static int file_get_byte_array (DBPCConnection *cn, int byte_addr, BYTE *byte_array, size_t size);
+static int file_set_byte_array (DBPCConnection *cn,
+                                int byte_addr,
+                                BYTE *byte_array,
+                                size_t size);
 
 char * get_source_name_id (void) {
      return SOURCE_NAME_ID;
@@ -93,10 +97,50 @@ static int file_get_byte_array (DBPCConnection *cn,
     return 0;   
 }
 
+/**
+  * Copies a byte array to the file.
+  * @cn: connection to be used.
+  * @byte_addr: the order of the byte to be changed.
+  * @value: allocated memory for the byte array to be copied.  
+  */
+
+static int file_set_byte_array (DBPCConnection *cn,
+                                int byte_addr,
+                                BYTE *byte_array,
+                                size_t size)
+{
+    ssize_t s;
+    s = pwrite (cn->fd, byte_array, size, byte_addr);
+    return 0;   
+}
+
+
 int file_set_value (DBPCConnection * cn, const char *address, BYTE *value, size_t size)
 {
-    printf ("FILE SET VAR SIZE: %d\n", (int)size);
-    /* dummy function */
+    int byte_addr, bit_addr;
+    int bit_mask = 0;
+    int address_type = file_parse_address (address, &byte_addr, &bit_addr);
+    BYTE *read_value = NULL, *write_value = NULL;
+    
+    if (address_type == invalid_address)
+        return 1;
+
+    if (address_type == boolean)
+    {
+        read_value = malloc(size);
+        write_value = malloc(size);
+        file_get_byte_array(cn, byte_addr, read_value, size);    
+        bit_mask = 1 << (bit_addr);
+        *write_value = bit_mask & *read_value;
+        
+        file_set_byte_array (cn, byte_addr, write_value, size);
+        free (read_value);
+        free (write_value);
+    }
+    else
+    {
+        file_set_byte_array(cn, byte_addr, value, size);
+    }
     return 0;
 }
 
