@@ -8,6 +8,12 @@
 #define SOURCE_NAME_ID "file"
 #define SOURCE_NAME "file common name"
 #define SOURCE_DESCRIPTION "file description"
+/** address type */
+enum address_type { invalid_address, boolean, integer };
+
+/* static elements */
+static int file_parse_address (const char *address, int *byte_addr, int *bit_addr);
+static int file_get_byte_array (DBPCConnection *cn, int byte_addr, BYTE *byte_array, size_t size);
 
 char * get_source_name_id (void) {
      return SOURCE_NAME_ID;
@@ -42,17 +48,49 @@ void file_connection_stop (DBPCConnection *cn) {
 
 int file_get_value (DBPCConnection * cn, const char *address, BYTE *value, size_t size)
 {
-    size_t max_size = 12;
-    int s;
-    char * at;
-    BYTE *read_val = malloc (max_size);
-    printf ("FILE GET VAR SIZE: %d\n", (int)size);
-    /* dummy function */
-    s = read (cn->fd, read_val, max_size);
-    at = atoi (read_val);
-    memcpy (value, at, size);
-    printf ("GET ERROR %d VALUE %d\n",(int) s, (int) *value);
+    int byte_addr, bit_addr;
+    int bit_mask = 0;
+    int address_type = file_parse_address (address, &byte_addr, &bit_addr);
+    
+    if (address_type == invalid_address)
+        return 1;
+    
+    /* if it is a valid address, we can retrieve the needed bytes */
+    file_get_byte_array(cn, byte_addr, value, size);
+    
+    /* act according to the address type */
+    switch (address_type)
+    {
+        case boolean:
+            bit_mask = 1 << (bit_addr);
+            if (bit_mask & *value)
+            {
+                *value = 1;
+            }
+            else
+            {
+                *value = 0;
+            }
+            break;
+    }
     return 0;
+}
+
+/**
+  * Gets a byte array from the file.
+  * @cn: connection to be used.
+  * @byte_addr: the order of the byte to be retrieved.
+  * @value: allocated memory for the byte array to be retrieved  
+  */
+
+static int file_get_byte_array (DBPCConnection *cn,
+                                int byte_addr,
+                                BYTE *byte_array,
+                                size_t size)
+{
+    ssize_t s;
+    s = pread (cn->fd, byte_array, size, byte_addr);
+    return 0;   
 }
 
 int file_set_value (DBPCConnection * cn, const char *address, BYTE *value, size_t size)
@@ -60,4 +98,31 @@ int file_set_value (DBPCConnection * cn, const char *address, BYTE *value, size_
     printf ("FILE SET VAR SIZE: %d\n", (int)size);
     /* dummy function */
     return 0;
+}
+
+static int file_parse_address (const char *address, int *byte_addr, int *bit_addr)
+{
+    const char *address_t;
+    int address_len = strlen(address);
+    address_t = address;
+    if (*address_t != 'M')
+    {
+        return invalid_address;
+    }
+    address_t = address + address_len -2;
+    if (*address_t == '.')
+    {
+        address_t = address + 1;
+        *byte_addr = atoi (address_t);
+        address_t = address + address_len -1;
+        *bit_addr = atoi(address_t);
+        return boolean;
+    }
+    else
+    {
+        address_t = address;
+        ++address_t;
+        *byte_addr = atoi (address_t);
+        return integer;
+    }
 }
