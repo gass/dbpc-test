@@ -1,11 +1,14 @@
 
 #include "tag.h"
+#include "tag_list.h"
 #include <string.h>
 
 static void dbpc_tag_list_add_aux(DBPCTag * tag, DBPCTag * t);
 static DBPCTag *dbpc_tag_list_find_aux (DBPCTag *tag, const char *tag_name);
 static void dbpc_tag_list_remove_aux (DBPCTag *tag, DBPCTag *t);
 static int dbpc_list_count_aux (DBPCTag *t, int n);
+static int dbpc_list_process_aux (DBPCTag *t);
+static int dbpc_list_execute_aux (DBPCTag *t, list_execute function);
 
 DBPCTag *TAG_LIST = NULL;
 
@@ -100,4 +103,35 @@ static int dbpc_list_count_aux (DBPCTag *t, int n)
     {
         return dbpc_list_count_aux (t->next, ++n);
     }
+}
+
+int dbpc_list_process (void)
+{
+    return dbpc_list_execute (DBPC_LIST_EXECUTE(dbpc_tag_process));
+}
+
+int dbpc_list_dump (void)
+{
+    return dbpc_list_execute (DBPC_LIST_EXECUTE(dbpc_tag_dump));
+}
+
+int dbpc_list_execute (list_execute function)
+{
+    dbpc_list_execute_aux (TAG_LIST, function);
+    return 0;
+}
+
+static int dbpc_list_execute_aux (DBPCTag *t, list_execute function)
+{
+    if (TAG_LIST == NULL)
+    {
+        return 0;
+    }
+    function(t);
+    
+    if (t->next == NULL)
+    {
+        return 0;
+    }
+    return dbpc_list_execute_aux (t->next, function);
 }
