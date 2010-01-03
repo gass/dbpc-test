@@ -38,6 +38,7 @@ static DBPCTag *dbpc_tag_new_empty(void)
 	t->events = NULL;
 	t->connection = NULL;
 	t->timestamp = 0;
+	t->next = NULL;
 	dbpc_tag_set_permission(t, DBPC_DEFAULT);
 	dbpc_tag_set_operation (t, DBPC_DEFAULT);
 	return t;
