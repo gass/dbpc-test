@@ -214,9 +214,6 @@ int dbpc_tag_set_operation (DBPCTag *t, int op)
 		case R:
 			t->operation = R;
 			break;
-		case RW:
-			t->operation = RW;
-			break;
 		case W:
 			t->operation = W;
 			break;
