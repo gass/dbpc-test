@@ -6,9 +6,12 @@
 /* Sources */
 DBPCSource *dbpc_source_new_empty(void);
 DBPCSource *dbpc_source_new(const char *name,
-			    void *connection_start,
-			    void *connection_stop,
-			    void *get_value, void *set_value);
+							void *connection_start,
+						    void *connection_stop,
+							void *get_value,
+						    void *set_value,
+							void *process_pre,
+							void *process);
 
 void dbpc_source_free(DBPCSource * src);
 

@@ -16,9 +16,12 @@
  * Creates a new #DBPCSource with all fields filled.
  */
 DBPCSource *dbpc_source_new(const char *name,
-			    void *connection_start,
-			    void *connection_stop, void *get_value,
-			    void *set_value)
+							void *connection_start,
+							void *connection_stop,
+							void *get_value,
+							void *set_value,
+							void *process_pre,
+							void *process)
 {
 	DBPCSource *src = dbpc_source_new_empty();
 	src->name = strdup(name);
@@ -26,6 +29,8 @@ DBPCSource *dbpc_source_new(const char *name,
 	src->connection_stop = connection_stop;
 	src->get_value = get_value;
 	src->set_value = set_value;
+	src->process_pre = process_pre;
+	src->process = process;
 	return src;
 }
 
@@ -44,6 +49,8 @@ DBPCSource *dbpc_source_new_empty(void)
 	src->get_value = NULL;
 	src->set_value = NULL;
 	src->monitor_value = NULL;
+	src->process_pre = NULL;
+	src->process = NULL;
 	src->next = NULL;
 	return src;
 }
