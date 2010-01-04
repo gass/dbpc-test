@@ -173,3 +173,18 @@ static int file_parse_address (const char *address, int *byte_addr, int *bit_add
         return integer;
     }
 }
+
+int file_process_pre (DBPCConnection * cn,
+                      const char *address,
+                      BYTE *value, size_t size)
+{
+    /* DUMMY FUNCTION */
+    return 0;
+}
+int file_process (DBPCConnection * cn,
+                  const char *address,
+                   BYTE *value, size_t size)
+{
+    /* DUMMY FUNCTION */
+    return 0;
+}
