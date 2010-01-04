@@ -1,9 +1,12 @@
+#define _XOPEN_SOURCE 500
+
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include "source_plugin.h"
 #include <stdlib.h>
 #include <string.h>
+
 
 #define SOURCE_NAME_ID "file"
 #define SOURCE_NAME "file common name"
