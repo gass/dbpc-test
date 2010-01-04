@@ -12,5 +12,6 @@ void dbpc_tag_list_remove (DBPCTag *t);
 int dbpc_tag_list_count (void);
 int dbpc_list_process (void);
 int dbpc_list_execute (list_execute function);
+DBPCTag *dbpc_list_get (int n);
 
 #endif				/* TAG_LIST_H */

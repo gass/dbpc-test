@@ -9,6 +9,7 @@ static void dbpc_tag_list_remove_aux (DBPCTag *tag, DBPCTag *t);
 static int dbpc_list_count_aux (DBPCTag *t, int n);
 static int dbpc_list_process_aux (DBPCTag *t);
 static int dbpc_list_execute_aux (DBPCTag *t, list_execute function);
+static DBPCTag *dbpc_list_get_aux (DBPCTag *t, int count, int n);
 
 DBPCTag *TAG_LIST = NULL;
 
@@ -134,4 +135,27 @@ static int dbpc_list_execute_aux (DBPCTag *t, list_execute function)
         return 0;
     }
     return dbpc_list_execute_aux (t->next, function);
+}
+
+DBPCTag *dbpc_list_get (int n)
+{
+    return dbpc_list_get_aux (TAG_LIST, 0, n);
+}
+
+static DBPCTag *dbpc_list_get_aux (DBPCTag *t, int count, int n)
+{
+    if (t == NULL)
+    {
+        return t;
+    }
+    else
+    {
+        if (count == n)
+            return t;
+        else
+            if (t->next == NULL)
+                return NULL;
+            else
+                return dbpc_list_get_aux (t->next, ++count, n);
+    }
 }
