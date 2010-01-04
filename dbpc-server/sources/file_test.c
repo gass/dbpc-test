@@ -35,7 +35,7 @@ char * file_get_description (void) {
 }
 
 void file_connection_start (DBPCConnection *cn) {
-    cn->fd = open (cn->connection_string, O_CREAT);
+    cn->fd = open (cn->connection_string, O_RDWR);
     if ( cn->fd == -1) {
         cn->status = ERROR;
     }
