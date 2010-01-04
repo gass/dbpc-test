@@ -78,7 +78,7 @@ void create_source(void)
 	itag = dbpc_int_new(cn, "Luis Luis2", "M2");
 	dbpc_tag_set_update_mode (DBPC_TAG(itag), CONTINUOUS);
 	dbpc_tag_set_permission (DBPC_TAG(itag), RW);
-	dbpc_tag_set_operation (DBPC_TAG(itag), R);
+	dbpc_tag_set_operation (DBPC_TAG(itag), RW);
 	dbpc_tag_list_add(DBPC_TAG(itag));
 	itag = dbpc_int_new(cn, "Luis Luis2", "M3");
 	dbpc_tag_set_update_mode (DBPC_TAG(itag), CONTINUOUS);
@@ -103,12 +103,24 @@ void create_source(void)
 		//dbpc_tag_process (DBPC_TAG(itag));
 		//dbpc_tag_process (DBPC_TAG(itag));
 		//dbpc_int_dump (itag);
+		itag = DBPC_TAG_INT(dbpc_list_get(3));
+		if (itag != NULL)
+		{
+			
+			dbpc_int_write (itag, 1001);
+			dbpc_int_dump(DBPC_TAG(itag));
+		}
 		dbpc_list_process ();
+
 		//dbpc_bool_dump (btag);
 		//dbpc_list_execute(DBPC_LIST_EXECUTE(dbpc_int_dump))
 		dbpc_connection_stop (cn);
 		dbpc_bool_dump (DBPC_TAG(btag));
-		
+		int c;
+		int j;
+		c = dbpc_tag_list_count();
+		for (j=1; j<c;j++)
+			dbpc_int_dump(dbpc_list_get(j));
 		
 /*	
 	printf ("COUNT %d\n", dbpc_tag_list_count ());
