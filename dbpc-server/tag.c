@@ -247,7 +247,7 @@ void dbpc_tag_set_update_mode (DBPCTag *t, int update_mode)
 int dbpc_tag_get_update_mode (DBPCTag *t)
 {
 	return t->update_mode;
-	
+		
 }
 /**
   * Processes a tag.
@@ -267,6 +267,7 @@ int dbpc_tag_process (DBPCTag * t)
 			t->tag_to_byte(t, value);
 			source->set_value(cn, t->address, value, t->value_size);
 			dbpc_tag_set_operation (t, DBPC_DEFAULT);
+			dbpc_tag_process (t); /* we need to know if we set the value right */
 			free (value);
 			break;
 		case R:
