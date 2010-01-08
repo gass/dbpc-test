@@ -48,13 +48,13 @@ void create_source(void)
 	DBPCTagBool *btag;
 	DBPCTagInt *itag;
 	BYTE * value;
-	dbpc_source_load ("/home/gass/dbpc/dbpc-server/.libs/libdbpc-source-file.so.0.0.0");
+	dbpc_source_load ("dbpc-server/.libs/libdbpc-source-file.so.0.0.0");
 	src = dbpc_source_list_find("file common name");
 	if (!src) return;
 	
 	printf ("eeer\n");
 	printf ("descrition: %s\n", src->description);
-	cn = dbpc_connection_new(src, "/home/gass/Desktop/tt2.dbpc");
+	cn = dbpc_connection_new(src, "text_file.dbpc");
 	/* bool tag */
 	btag = dbpc_bool_new(cn, "Luis Luis", "M6.1");
 	dbpc_tag_set_permission (DBPC_TAG(btag), RW);
